@@ -148,15 +148,15 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
 
       {/* Genre / Mood Presets */}
       <div className="mb-6">
-        <div className="grid grid-cols-3 gap-2 max-w-xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
           {GENRE_PRESETS.map((preset, idx) => (
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               key={idx}
               type="button"
               onClick={() => handlePresetClick(preset.prompt)}
-              className="w-full py-1.5 px-2 rounded-lg bg-slate-900/60 hover:bg-slate-800/80 text-blue-100/90 border border-blue-400/15 hover:border-amber-400/40 hover:text-white transition-all text-[11px] sm:text-xs font-medium shadow-sm text-center flex items-center justify-center backdrop-blur-md"
+              className="px-3 py-1 rounded-full bg-slate-900/70 hover:bg-slate-800/90 text-blue-100/90 border border-blue-400/20 hover:border-amber-400/50 hover:text-white transition-all text-xs font-medium shadow-sm backdrop-blur-md whitespace-nowrap"
               disabled={isLoading}
             >
               {preset.label}
