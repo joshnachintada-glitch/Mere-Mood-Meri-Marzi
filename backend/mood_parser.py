@@ -40,17 +40,18 @@ def parse_mood(user_input: str) -> dict:
     - Gujarati Cinema ('gu')
     - Indian English / Global ('en')
     - Assamese ('as'), Urdu ('ur')
+    - Anime & Japanese Animation ('ja')
 
-    Analyze the user's mood, vibe, genre, or language preference and determine the best TMDB movie genres and keywords to search for.
+    Analyze the user's mood, vibe, genre, or language preference (including Anime, Indian regional cinema, and global films) and determine the best TMDB movie genres and keywords to search for.
 
     User Mood/Input: "{user_input}"
 
     Return a JSON object matching this schema:
     {{
-      "primary_genre_ids": [array of integers representing TMDB genre IDs],
-      "keywords": [array of string keywords to search for, e.g. "feel-good", "mass", "emotional", "wholesome", "plot-twist"],
+      "primary_genre_ids": [array of integers representing TMDB genre IDs, e.g. Animation is 16],
+      "keywords": [array of string keywords to search for, e.g. "anime", "shonen", "feel-good", "mass", "emotional", "wholesome", "plot-twist"],
       "tone_summary": "A 1-2 sentence lively summary of the emotional vibe the user is looking for and what makes these films great for this mood.",
-      "original_language": "ISO 639-1 code if specific language requested/implied (e.g., 'hi', 'te', 'ta', 'kn', 'ml', 'pa', 'or', 'mr', 'bn', 'gu', 'en', 'as', 'ur'), or 'all' if not specified or all Indian languages requested."
+      "original_language": "ISO 639-1 code if specific language requested/implied (e.g., 'ja' for anime/Japanese, 'hi', 'te', 'ta', 'kn', 'ml', 'pa', 'or', 'mr', 'bn', 'gu', 'en', 'as', 'ur'), or 'all' if not specified or all Indian languages requested."
     }}
 
     Valid TMDB Genre IDs:

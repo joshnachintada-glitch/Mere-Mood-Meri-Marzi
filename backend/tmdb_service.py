@@ -20,6 +20,7 @@ LANGUAGE_MAP = {
     "en": "English",
     "ur": "Urdu",
     "as": "Assamese",
+    "ja": "Japanese / Anime",
 }
 
 GENRE_MAP = {

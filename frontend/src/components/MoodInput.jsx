@@ -17,6 +17,7 @@ export const LANGUAGES = [
   { code: "gu", name: "Gujarati", label: "🎬 Gujarati", region: "Dhollywood" },
   { code: "as", name: "Assamese", label: "🎬 Assamese", region: "Jollywood" },
   { code: "ur", name: "Urdu", label: "🎬 Urdu", region: "Indian Urdu Cinema" },
+  { code: "ja", name: "Japanese / Anime", label: "🎌 Anime (Japanese)", region: "Anime & Japanese Cinema" },
   { code: "en", name: "English", label: "🌐 English", region: "Global / Indian English" },
 ];
 
@@ -29,6 +30,7 @@ export const GENRE_PRESETS = [
   { label: "Fantasy", prompt: "Magical fantasy and mythical adventure movies" },
   { label: "Thriller & Suspense", prompt: "Gripping thriller, suspense and mystery movies" },
   { label: "Romance", prompt: "Heartwarming romantic love story movies" },
+  { label: "Anime", prompt: "Masterpiece anime movies with stunning animation and storytelling" },
 ];
 
 export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSelectedLanguage }) {
@@ -146,7 +148,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
 
       {/* Genre / Mood Presets */}
       <div className="mb-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-w-3xl mx-auto">
           {GENRE_PRESETS.map((preset, idx) => (
             <motion.button
               whileHover={{ scale: 1.03 }}
