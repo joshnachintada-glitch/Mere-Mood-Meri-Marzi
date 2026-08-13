@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import MoodInput from './components/MoodInput';
@@ -14,6 +14,16 @@ function App() {
   const [moodAnalysis, setMoodAnalysis] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState("all");
   const [activeFilterLang, setActiveFilterLang] = useState("all");
+  const resultsRef = useRef(null);
+
+  // Smoothly scroll to results when movies are loaded
+  useEffect(() => {
+    if (movies.length > 0 && resultsRef.current) {
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
+  }, [movies]);
 
   const handleSearch = async (mood, language = selectedLanguage) => {
     setIsLoading(true);
@@ -90,7 +100,7 @@ function App() {
         )}
 
         {movies.length > 0 && (
-          <div className="mt-8">
+          <div ref={resultsRef} className="mt-8 scroll-mt-24">
             {/* Header & Vibes */}
             <div className="flex items-center justify-between mb-6 flex-wrap gap-4 bg-slate-950/40 p-4 rounded-2xl border border-white/10 backdrop-blur-md">
               <div>
