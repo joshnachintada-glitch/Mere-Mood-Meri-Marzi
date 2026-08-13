@@ -16,7 +16,6 @@ export const LANGUAGES = [
   { code: "bn", name: "Bengali", label: "🎬 Bengali", region: "Tollywood (Bengali)" },
   { code: "gu", name: "Gujarati", label: "🎬 Gujarati", region: "Dhollywood" },
   { code: "as", name: "Assamese", label: "🎬 Assamese", region: "Jollywood" },
-  { code: "bho", name: "Bhojpuri", label: "🎬 Bhojpuri", region: "Bhojiwood" },
   { code: "ur", name: "Urdu", label: "🎬 Urdu", region: "Indian Urdu Cinema" },
   { code: "en", name: "English", label: "🌐 English", region: "Global / Indian English" },
 ];

@@ -20,7 +20,6 @@ LANGUAGE_MAP = {
     "en": "English",
     "ur": "Urdu",
     "as": "Assamese",
-    "bho": "Bhojpuri",
 }
 
 GENRE_MAP = {
@@ -45,7 +44,7 @@ GENRE_MAP = {
     37: "Western",
 }
 
-ALL_INDIAN_LANGUAGES = "hi|te|ta|kn|ml|pa|or|mr|bn|gu|en|ur|as|bho"
+ALL_INDIAN_LANGUAGES = "hi|te|ta|kn|ml|pa|or|mr|bn|gu|en|ur|as"
 
 async def get_movie_recommendations(mood_data: dict, region: str = "IN", explicit_language: str | None = None) -> list:
     if not TMDB_API_KEY and not TMDB_ACCESS_TOKEN:

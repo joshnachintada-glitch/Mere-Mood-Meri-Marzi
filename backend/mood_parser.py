@@ -38,8 +38,8 @@ def parse_mood(user_input: str) -> dict:
     - Marathi Cinema ('mr')
     - Bengali Cinema ('bn')
     - Gujarati Cinema ('gu')
-    - Indian English / Hollywood ('en')
-    - Assamese ('as'), Bhojpuri ('bho'), Urdu ('ur')
+    - Indian English / Global ('en')
+    - Assamese ('as'), Urdu ('ur')
 
     Analyze the user's mood, vibe, genre, or language preference and determine the best TMDB movie genres and keywords to search for.
 
