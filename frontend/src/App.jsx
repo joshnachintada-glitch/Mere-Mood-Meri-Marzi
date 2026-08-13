@@ -91,17 +91,6 @@ function App() {
         
         {/* Results / Feedback Section with auto-scroll anchor */}
         <div ref={resultsRef} className="mt-8 scroll-mt-24">
-          {isLoading && (
-            <div className="text-center py-16 px-4 bg-slate-950/60 rounded-2xl border border-white/10 backdrop-blur-xl max-w-xl mx-auto shadow-2xl animate-fade-in">
-              <div className="relative inline-block mb-4">
-                <div className="w-14 h-14 border-4 border-amber-400/20 border-t-amber-400 rounded-full animate-spin mx-auto"></div>
-                <Sparkles className="w-6 h-6 text-pink-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
-              </div>
-              <h4 className="text-xl font-extrabold text-white mb-2">Analyzing your vibe with AI...</h4>
-              <p className="text-sm text-white/70">Matching your mood across Indian cinema & streaming platforms.</p>
-            </div>
-          )}
-
           {error && !isLoading && (
             <div className="bg-red-500/20 border border-red-500 text-white px-6 py-4 rounded-xl max-w-2xl mx-auto mb-10 backdrop-blur-md">
               <p className="font-bold">Oops! Something went wrong.</p>

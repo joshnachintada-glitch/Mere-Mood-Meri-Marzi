@@ -185,14 +185,10 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             size="default"
             className="rounded-xl px-5 text-white font-bold whitespace-nowrap"
           >
-            {isLoading ? (
-              <span className="animate-spin inline-block w-5 h-5 border-2 border-white/20 border-t-white rounded-full"></span>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Search className="w-4 h-4" />
-                <span className="hidden sm:inline">Explore Films</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              <span className="hidden sm:inline">{isLoading ? "Searching..." : "Explore Films"}</span>
+            </div>
           </LiquidButton>
         </div>
       </form>
