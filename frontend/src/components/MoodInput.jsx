@@ -150,15 +150,15 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
           <Sparkles className="w-4 h-4 text-pink-400" />
           <span>Popular Vibe & Genre Presets</span>
         </div>
-        <div className="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto">
           {GENRE_PRESETS.map((preset, idx) => (
             <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               key={idx}
               type="button"
               onClick={() => handlePresetClick(preset.prompt)}
-              className="px-3.5 py-1.5 rounded-full bg-slate-900/60 hover:bg-slate-800 text-blue-200 border border-blue-400/20 hover:border-blue-400/40 transition-colors text-xs md:text-sm font-medium shadow-sm"
+              className="w-full py-2 px-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/90 text-blue-100 border border-blue-400/20 hover:border-amber-400/50 hover:text-white transition-all text-xs sm:text-sm font-semibold shadow-md text-center flex items-center justify-center backdrop-blur-md"
               disabled={isLoading}
             >
               {preset.label}
