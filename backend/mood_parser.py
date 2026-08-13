@@ -27,22 +27,53 @@ def parse_mood(user_input: str) -> dict:
     )
     
     prompt = f"""
-    You are an expert movie recommender. Analyze the following user mood or situation and determine the best TMDB movie genres and keywords to search for.
-    
-    User Mood: "{user_input}"
-    
+    You are an expert Indian & global cinema recommender with deep knowledge of Indian film industries:
+    - Bollywood (Hindi - 'hi')
+    - Tollywood (Telugu - 'te')
+    - Kollywood (Tamil - 'ta')
+    - Sandalwood (Kannada - 'kn')
+    - Mollywood (Malayalam - 'ml')
+    - Pollywood (Punjabi - 'pa')
+    - Ollywood (Odia - 'or')
+    - Marathi Cinema ('mr')
+    - Bengali Cinema ('bn')
+    - Gujarati Cinema ('gu')
+    - Indian English / Hollywood ('en')
+    - Assamese ('as'), Bhojpuri ('bho'), Urdu ('ur')
+
+    Analyze the user's mood, vibe, genre, or language preference and determine the best TMDB movie genres and keywords to search for.
+
+    User Mood/Input: "{user_input}"
+
     Return a JSON object matching this schema:
     {{
       "primary_genre_ids": [array of integers representing TMDB genre IDs],
-      "keywords": [array of string keywords to search for, e.g. "feel-good", "heist", "coming of age"],
-      "tone_summary": "A 1-2 sentence summary of the emotional vibe the user is looking for and why.",
-      "original_language": "The ISO 639-1 language code (e.g., 'hi' for Hindi, 'te' for Telugu, 'ta' for Tamil, 'ko' for Korean, 'en' for English) if the user implies a language. If not specified, return null."
+      "keywords": [array of string keywords to search for, e.g. "feel-good", "mass", "emotional", "wholesome", "plot-twist"],
+      "tone_summary": "A 1-2 sentence lively summary of the emotional vibe the user is looking for and what makes these films great for this mood.",
+      "original_language": "ISO 639-1 code if specific language requested/implied (e.g., 'hi', 'te', 'ta', 'kn', 'ml', 'pa', 'or', 'mr', 'bn', 'gu', 'en', 'as', 'ur'), or 'all' if not specified or all Indian languages requested."
     }}
-    
-    Valid TMDB Genre IDs for Movies:
-    Action: 28, Adventure: 12, Animation: 16, Comedy: 35, Crime: 80, Documentary: 99, Drama: 18, Family: 10751, Fantasy: 14, History: 36, Horror: 27, Music: 10402, Mystery: 9648, Romance: 10749, Science Fiction: 878, TV Movie: 10770, Thriller: 53, War: 10752, Western: 37.
-    
-    Choose 1 to 3 most relevant genre IDs. Provide up to 5 keywords.
+
+    Valid TMDB Genre IDs:
+    - Action: 28
+    - Adventure: 12
+    - Animation: 16
+    - Comedy: 35
+    - Crime: 80
+    - Documentary: 99
+    - Drama: 18
+    - Family: 10751
+    - Fantasy: 14
+    - History: 36
+    - Horror: 27
+    - Music: 10402
+    - Mystery: 9648
+    - Romance: 10749
+    - Science Fiction: 878
+    - Thriller: 53
+    - War: 10752
+    - Western: 37
+
+    Choose 1 to 3 most relevant genre IDs. Provide 3-5 keywords.
     Output ONLY valid JSON without any markdown formatting.
     """
     

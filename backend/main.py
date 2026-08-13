@@ -27,6 +27,7 @@ app.add_middleware(
 class RecommendRequest(BaseModel):
     mood: str
     region: str = "IN"
+    language: str | None = None
 
 @app.get("/")
 def read_root():
@@ -35,11 +36,11 @@ def read_root():
 @app.post("/api/recommend")
 async def recommend_movies(request: RecommendRequest):
     try:
-        # Step 1: Parse mood using Gemini
+        # Step 1: Parse mood using AI
         mood_data = parse_mood(request.mood)
         
-        # Step 2 & 3: Get movie recommendations from TMDB based on parsed mood and region
-        recommendations = await get_movie_recommendations(mood_data, request.region)
+        # Step 2 & 3: Get movie recommendations from TMDB based on parsed mood, region, and language
+        recommendations = await get_movie_recommendations(mood_data, request.region, request.language)
         
         return {"movies": recommendations, "mood_analysis": mood_data}
     except Exception as e:
