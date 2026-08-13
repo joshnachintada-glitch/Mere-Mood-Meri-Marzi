@@ -21,14 +21,14 @@ export const LANGUAGES = [
 ];
 
 export const GENRE_PRESETS = [
-  { label: "🔥 Mass Action", prompt: "High adrenaline mass action and heroic thrillers" },
-  { label: "😂 Laugh Riot Comedy", prompt: "Lighthearted hilarious comedy and feel-good fun" },
-  { label: "❤️ Heartwarming Romance", prompt: "Sweet romantic love story and emotional connection" },
-  { label: "🧠 Mind-Bending Thriller", prompt: "Edge-of-the-seat suspense mystery crime thriller" },
-  { label: "👨‍👩‍👧 Family Drama", prompt: "Emotional family drama and wholesome bonding" },
-  { label: "👻 Horror & Supernatural", prompt: "Chilling horror, supernatural eerie mystery" },
-  { label: "🚀 Sci-Fi & Fantasy", prompt: "Futuristic science fiction and mythological fantasy" },
-  { label: "👑 Historical Epic", prompt: "Magnificent historical period epic and war drama" },
+  { label: "Action", prompt: "Action movies with intense thrill and high energy" },
+  { label: "Comedy", prompt: "Hilarious comedy movies with feel-good laughter" },
+  { label: "Drama", prompt: "Emotional and powerful drama movies" },
+  { label: "Horror", prompt: "Chilling and scary horror movies" },
+  { label: "Science Fiction (Sci-Fi)", prompt: "Futuristic science fiction and mind-bending Sci-Fi movies" },
+  { label: "Fantasy", prompt: "Magical fantasy and mythical adventure movies" },
+  { label: "Thriller & Suspense", prompt: "Gripping thriller, suspense and mystery movies" },
+  { label: "Romance", prompt: "Heartwarming romantic love story movies" },
 ];
 
 export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSelectedLanguage }) {
