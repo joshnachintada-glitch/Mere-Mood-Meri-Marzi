@@ -10,9 +10,6 @@ export default function Navbar() {
           Mere Mood Meri Marzi
         </span>
       </div>
-      <div className="text-xs text-white/60 font-medium hidden sm:block">
-        AI-Powered Cinema Discovery
-      </div>
     </nav>
   );
 }
