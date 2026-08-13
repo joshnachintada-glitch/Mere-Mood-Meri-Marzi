@@ -19,7 +19,8 @@ function App() {
     setMovies([]);
     
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/recommend', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const response = await axios.post(`${apiUrl}/api/recommend`, {
         mood: mood,
         region: 'IN'
       });
@@ -32,7 +33,8 @@ function App() {
       }
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch recommendations. Ensure backend is running and API keys are set.");
+      const detail = err.response?.data?.error || err.response?.data?.detail || err.message;
+      setError(`Failed to fetch recommendations (${detail}). Ensure backend is running and API keys are set.`);
     } finally {
       setIsLoading(false);
     }
