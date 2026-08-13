@@ -146,10 +146,6 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
 
       {/* Genre / Mood Presets */}
       <div className="mb-8">
-        <div className="flex items-center justify-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-white/60">
-          <Sparkles className="w-4 h-4 text-pink-400" />
-          <span>Popular Vibe & Genre Presets</span>
-        </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto">
           {GENRE_PRESETS.map((preset, idx) => (
             <motion.button
