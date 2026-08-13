@@ -78,8 +78,8 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg tracking-tight">
-          Mere Mood, <span className="bg-gradient-to-r from-amber-400 via-pink-400 to-red-400 bg-clip-text text-transparent">Meri Marzi</span>
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg tracking-tight text-white">
+          Mere Mood, Meri Marzi
         </h2>
         <p className="text-lg text-white/70 max-w-2xl mx-auto">
           Discover movies across all Indian languages & genres tailored to your exact mood and vibes.
