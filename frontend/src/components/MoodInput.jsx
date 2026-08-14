@@ -70,9 +70,15 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
     <div className="w-full max-w-5xl mx-auto mt-6 mb-10 px-4">
       {/* Hero Heading */}
       <div className="text-center mb-8">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black drop-shadow-sm tracking-tight text-blue-950">
-          Mere Mood, <span className="text-blue-900 underline decoration-blue-950/30">Meri Marzi</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-3 backdrop-blur-md">
+          <Sparkles className="w-3.5 h-3.5" /> AI-Powered Movie Recommender
+        </div>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-3 drop-shadow-xl tracking-tight text-white">
+          Mere Mood, <span className="text-amber-400">Meri Marzi</span>
         </h2>
+        <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
+          Discover movies arranged across all Indian & global cinema industries tailored to your exact mood, genre, and vibes.
+        </p>
       </div>
 
       {/* Language Selector Bar */}
@@ -81,15 +87,15 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
           <button
             type="button"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-transparent hover:bg-blue-950/5 border border-blue-950/30 hover:border-blue-950 backdrop-blur-md shadow-sm transition-all duration-200 text-blue-950 group cursor-pointer"
+            className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800/95 border border-white/20 hover:border-amber-400/60 backdrop-blur-xl shadow-xl transition-all duration-200 text-white group cursor-pointer"
           >
-            <Globe2 className="w-4 h-4 text-blue-950 group-hover:scale-110 transition-transform" />
+            <Globe2 className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
             <div className="text-left flex items-center gap-2">
-              <span className="text-xs text-blue-950/60 uppercase font-bold tracking-wider">Industry:</span>
-              <span className="text-sm font-black text-blue-950">{selectedLangObj.label}</span>
-              <span className="text-xs text-blue-900/60 hidden sm:inline">({selectedLangObj.region})</span>
+              <span className="text-xs text-white/50 uppercase font-bold tracking-wider">Industry:</span>
+              <span className="text-sm font-extrabold text-amber-300">{selectedLangObj.label}</span>
+              <span className="text-xs text-white/40 hidden sm:inline">({selectedLangObj.region})</span>
             </div>
-            <ChevronDown className={`w-4 h-4 text-blue-950 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-white/60 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-amber-400' : ''}`} />
           </button>
 
           {/* Floating Dropdown Menu */}
@@ -100,9 +106,9 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.15 }}
-                className="absolute left-1/2 -translate-x-1/2 mt-2 w-72 sm:w-80 max-h-80 overflow-y-auto rounded-2xl bg-white/95 border border-blue-950/20 shadow-2xl backdrop-blur-2xl p-2 z-50 divide-y divide-blue-950/10 scrollbar-thin scrollbar-thumb-blue-950/20"
+                className="absolute left-1/2 -translate-x-1/2 mt-2 w-72 sm:w-80 max-h-80 overflow-y-auto rounded-2xl bg-slate-950/95 border border-white/20 shadow-2xl backdrop-blur-2xl p-2 z-50 divide-y divide-white/5 scrollbar-thin scrollbar-thumb-white/20"
               >
-                <div className="px-3 py-2 text-[11px] font-black text-blue-950/60 uppercase tracking-wider">
+                <div className="px-3 py-2 text-[11px] font-bold text-white/40 uppercase tracking-wider">
                   Select Movie Industry & Language
                 </div>
                 <div className="py-1">
@@ -115,15 +121,15 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
                         onClick={() => handleSelectLanguage(lang.code)}
                         className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors text-left cursor-pointer ${
                           isSelected
-                            ? "bg-blue-950/10 text-blue-950 font-black border border-blue-950/30"
-                            : "text-blue-950/80 hover:bg-blue-950/5 hover:text-blue-950"
+                            ? "bg-amber-400/20 text-amber-300 font-bold border border-amber-400/40"
+                            : "text-white/80 hover:bg-white/10 hover:text-white"
                         }`}
                       >
                         <div className="flex flex-col">
-                          <span className="font-bold">{lang.label}</span>
-                          <span className="text-[11px] text-blue-900/60">{lang.region}</span>
+                          <span className="font-semibold">{lang.label}</span>
+                          <span className="text-[11px] text-white/50">{lang.region}</span>
                         </div>
-                        {isSelected && <Check className="w-4 h-4 text-blue-950 shrink-0" />}
+                        {isSelected && <Check className="w-4 h-4 text-amber-400 shrink-0" />}
                       </button>
                     );
                   })}
@@ -143,7 +149,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
 
       {/* Freeform Search Bar */}
       <form onSubmit={handleSubmit} className="relative max-w-3xl mx-auto">
-        <div className="relative flex items-center bg-transparent backdrop-blur-md border-2 border-blue-950/35 hover:border-blue-950 focus-within:border-blue-950 rounded-2xl overflow-hidden shadow-sm p-1.5 transition-colors">
+        <div className="relative flex items-center bg-slate-950/90 backdrop-blur-xl border border-white/20 hover:border-amber-400/50 focus-within:border-amber-400 rounded-2xl overflow-hidden shadow-2xl p-1.5 transition-colors">
           <input
             type="text"
             value={customMood}
@@ -152,7 +158,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
               setSelectedGenreId(null);
             }}
             placeholder="e.g. 'Mind-bending murder mystery with a crazy twist' or 'Chill feel-good romance'..."
-            className="w-full bg-transparent px-4 py-3 outline-none text-base md:text-lg text-blue-950 placeholder:text-blue-950/45 font-medium"
+            className="w-full bg-transparent px-4 py-3 outline-none text-base md:text-lg text-white placeholder:text-white/40"
             disabled={isLoading}
           />
           
@@ -160,21 +166,23 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             <button
               type="button"
               onClick={handleClear}
-              className="p-2 text-blue-950/60 hover:text-blue-950 rounded-full transition-colors mr-1 cursor-pointer"
+              className="p-2 text-white/50 hover:text-white rounded-full transition-colors mr-1 cursor-pointer"
               title="Clear input"
             >
               <X className="w-4 h-4" />
             </button>
           )}
 
-          <button
+          <HoverBorderGradient 
+            as="button"
             type="submit" 
             disabled={isLoading}
-            className="rounded-xl px-6 py-2.5 text-sm bg-transparent hover:bg-blue-950/10 border border-blue-950/40 hover:border-blue-950 text-blue-950 font-black whitespace-nowrap flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+            containerClassName="rounded-full shrink-0"
+            className="rounded-full px-6 py-2.5 text-sm bg-slate-950 text-white font-bold whitespace-nowrap flex items-center gap-2 hover:text-amber-300 transition-colors cursor-pointer"
           >
-            <Search className="w-4 h-4 text-blue-950" />
+            <Search className="w-4 h-4 text-amber-400" />
             <span className="hidden sm:inline">Explore Movies</span>
-          </button>
+          </HoverBorderGradient>
         </div>
       </form>
     </div>

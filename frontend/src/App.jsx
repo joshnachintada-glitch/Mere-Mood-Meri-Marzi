@@ -233,23 +233,20 @@ function App() {
             </div>
           )}
 
-          {/* Error Message */}
-          {error && (
-            <div className="max-w-xl mx-auto p-4 bg-transparent border border-red-500/40 rounded-2xl text-red-950 text-center backdrop-blur-md mb-8 shadow-sm">
-              <p className="font-bold flex items-center justify-center gap-2">
-                <AlertCircle className="w-5 h-5 text-red-900" />
-                Error Loading Recommendations
-              </p>
+          {/* Error Banner */}
+          {error && !isLoading && (
+            <div className="bg-red-500/20 border border-red-500/50 text-white px-6 py-5 rounded-2xl max-w-2xl mx-auto mb-10 backdrop-blur-xl shadow-2xl">
+              <p className="font-bold text-red-200 text-base">Oops! Something went wrong.</p>
               <p className="text-sm opacity-80 mt-1">{error}</p>
             </div>
           )}
 
           {/* Empty Results Banner */}
           {hasSearched && !isLoading && movies.length === 0 && !error && (
-            <div className="text-center text-blue-950 py-16 max-w-lg mx-auto bg-transparent rounded-3xl border border-blue-950/25 backdrop-blur-xl shadow-sm px-6">
-              <Film className="w-12 h-12 mx-auto mb-3 text-blue-950/60" />
-              <p className="text-xl font-black text-blue-950">No movies found for this query.</p>
-              <p className="text-sm text-blue-900/70 mt-1 font-medium">Try choosing "All Languages" or click one of the genre mood presets above!</p>
+            <div className="text-center text-white/70 py-16 max-w-lg mx-auto bg-slate-950/60 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl px-6">
+              <Film className="w-12 h-12 mx-auto mb-3 text-amber-400/60" />
+              <p className="text-xl font-bold text-white">No movies found for this query.</p>
+              <p className="text-sm text-white/60 mt-1">Try choosing "All Languages" or click one of the genre mood presets above!</p>
             </div>
           )}
 
@@ -258,28 +255,28 @@ function App() {
             <div className="max-w-7xl mx-auto space-y-6">
               
               {/* Header & Vibes Analysis Card */}
-              <div className="bg-transparent p-6 rounded-3xl border border-blue-950/25 backdrop-blur-xl shadow-md">
+              <div className="bg-slate-950/70 p-6 rounded-3xl border border-white/15 backdrop-blur-xl shadow-2xl">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-0.5 rounded-full bg-transparent border border-blue-950/30 text-blue-950 text-xs font-black uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
                         {movies.length} Masterpieces Arranged
                       </span>
                       {selectedLanguage !== "all" && (
-                        <span className="px-2.5 py-0.5 rounded-full bg-transparent border border-blue-950/30 text-blue-950 text-xs font-bold">
+                        <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold">
                           {selectedLanguage.toUpperCase()}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-black text-blue-950 mt-1.5 flex items-center gap-2.5">
-                      <Film className="w-7 h-7 text-blue-950 shrink-0" />
+                    <h3 className="text-2xl sm:text-3xl font-black text-white mt-1.5 flex items-center gap-2.5">
+                      <Film className="w-7 h-7 text-amber-400 shrink-0" />
                       Curated Movie Matches
                     </h3>
 
                     {moodAnalysis?.tone_summary && (
-                      <p className="text-sm sm:text-base text-blue-900/80 font-medium mt-1.5 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-blue-950 shrink-0" />
+                      <p className="text-sm sm:text-base text-white/80 mt-1.5 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-pink-400 shrink-0" />
                         <span>{moodAnalysis.tone_summary}</span>
                       </p>
                     )}
@@ -288,11 +285,11 @@ function App() {
                   {/* Vibes / Keywords Badges */}
                   {moodAnalysis?.keywords && moodAnalysis.keywords.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 items-center md:max-w-md md:justify-end">
-                      <span className="text-xs text-blue-950/60 font-black uppercase tracking-wider mr-1">Vibes:</span>
+                      <span className="text-xs text-white/50 font-bold uppercase tracking-wider mr-1">Vibes:</span>
                       {moodAnalysis.keywords.map((kw, i) => (
                         <span 
                           key={i} 
-                          className="text-xs text-blue-950 bg-transparent px-3 py-1 rounded-full border border-blue-950/30 font-bold shadow-sm"
+                          className="text-xs text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-400/30 font-semibold shadow-sm"
                         >
                           #{kw}
                         </span>
@@ -302,17 +299,17 @@ function App() {
                 </div>
 
                 {/* Controls Bar: View Switcher & Sorting */}
-                <div className="mt-6 pt-5 border-t border-blue-950/15 flex flex-wrap items-center justify-between gap-4">
+                <div className="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
                   
                   {/* Left: View Mode Toggles */}
-                  <div className="flex items-center gap-2 bg-transparent p-1 rounded-xl border border-blue-950/25">
+                  <div className="flex items-center gap-2 bg-slate-900/80 p-1 rounded-xl border border-white/15">
                     <button
                       type="button"
                       onClick={() => setViewMode("grid")}
                       className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                         viewMode === "grid"
-                          ? "bg-blue-950/15 text-blue-950 border border-blue-950 font-black shadow-sm"
-                          : "text-blue-950/60 hover:text-blue-950 hover:bg-blue-950/5"
+                          ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                          : "text-white/70 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <LayoutGrid className="w-3.5 h-3.5" />
@@ -323,8 +320,8 @@ function App() {
                       onClick={() => setViewMode("grouped")}
                       className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                         viewMode === "grouped"
-                          ? "bg-blue-950/15 text-blue-950 border border-blue-950 font-black shadow-sm"
-                          : "text-blue-950/60 hover:text-blue-950 hover:bg-blue-950/5"
+                          ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                          : "text-white/70 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       <Layers className="w-3.5 h-3.5" />
@@ -334,20 +331,20 @@ function App() {
 
                   {/* Right: Sort Selector & Reset */}
                   <div className="flex items-center gap-3 flex-wrap">
-                    <div className="flex items-center gap-2 bg-transparent px-3 py-1.5 rounded-xl border border-blue-950/25">
-                      <ArrowUpDown className="w-3.5 h-3.5 text-blue-950" />
-                      <span className="text-xs text-blue-950/60 font-black uppercase tracking-wider">Sort:</span>
+                    <div className="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-white/15">
+                      <ArrowUpDown className="w-3.5 h-3.5 text-amber-400" />
+                      <span className="text-xs text-white/50 font-semibold uppercase tracking-wider">Sort:</span>
                       <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value)}
-                        className="bg-transparent text-xs font-black text-blue-950 outline-none cursor-pointer pr-2"
+                        className="bg-transparent text-xs font-bold text-amber-300 outline-none cursor-pointer pr-2"
                       >
-                        <option value="relevance" className="bg-white text-blue-950">AI Curated Match</option>
-                        <option value="rating" className="bg-white text-blue-950">Highest Rating</option>
-                        <option value="year_desc" className="bg-white text-blue-950">Newest Releases</option>
-                        <option value="year_asc" className="bg-white text-blue-950">Classic First</option>
-                        <option value="ott_first" className="bg-white text-blue-950">Streaming Available First</option>
-                        <option value="title" className="bg-white text-blue-950">Title (A → Z)</option>
+                        <option value="relevance" className="bg-slate-950 text-white">AI Curated Match</option>
+                        <option value="rating" className="bg-slate-950 text-white">Highest Rating</option>
+                        <option value="year_desc" className="bg-slate-950 text-white">Newest Releases</option>
+                        <option value="year_asc" className="bg-slate-950 text-white">Classic First</option>
+                        <option value="ott_first" className="bg-slate-950 text-white">Streaming Available First</option>
+                        <option value="title" className="bg-slate-950 text-white">Title (A → Z)</option>
                       </select>
                     </div>
 
@@ -355,7 +352,7 @@ function App() {
                       <button
                         type="button"
                         onClick={handleResetFilters}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-transparent hover:bg-red-500/10 text-blue-950 hover:text-red-700 border border-blue-950/25 hover:border-red-400/40 transition-all cursor-pointer"
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-red-500/20 text-white/80 hover:text-red-300 border border-white/15 hover:border-red-400/40 transition-all cursor-pointer"
                         title="Reset all applied filters"
                       >
                         <RotateCcw className="w-3 h-3" />
@@ -367,17 +364,17 @@ function App() {
 
                 {/* Filter Row 1: Languages in Results */}
                 {availableResultLangs.length > 1 && (
-                  <div className="mt-4 pt-4 border-t border-blue-950/15 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                    <span className="text-xs text-blue-950/60 flex items-center gap-1 shrink-0 font-black uppercase tracking-wider">
-                      <Filter className="w-3 h-3 text-blue-950" /> Industry:
+                  <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    <span className="text-xs text-white/50 flex items-center gap-1 shrink-0 font-bold uppercase tracking-wider">
+                      <Filter className="w-3 h-3 text-amber-400" /> Industry:
                     </span>
                     <button
                       type="button"
                       onClick={() => setActiveFilterLang("all")}
                       className={`px-3 py-1 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
                         activeFilterLang === "all"
-                          ? "bg-blue-950/15 text-blue-950 font-black border-2 border-blue-950 shadow-sm"
-                          : "bg-transparent text-blue-950/70 hover:bg-blue-950/5 hover:text-blue-950 border border-blue-950/20"
+                          ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                          : "bg-white/10 text-white/70 hover:bg-white/20 border border-white/10"
                       }`}
                     >
                       All ({movies.length})
@@ -389,12 +386,12 @@ function App() {
                         onClick={() => setActiveFilterLang(l.code)}
                         className={`px-3 py-1 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
                           activeFilterLang === l.code
-                            ? "bg-blue-950/15 text-blue-950 font-black border-2 border-blue-950 shadow-sm"
-                            : "bg-transparent text-blue-950/70 hover:bg-blue-950/5 hover:text-blue-950 border border-blue-950/20"
+                            ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                            : "bg-white/10 text-white/70 hover:bg-white/20 border border-white/10"
                         }`}
                       >
                         <span>{l.name}</span>
-                        <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-transparent border border-blue-950/20 text-blue-950 font-bold">
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${activeFilterLang === l.code ? 'bg-slate-950 text-amber-300' : 'bg-white/10 text-white/60'}`}>
                           {l.count}
                         </span>
                       </button>
@@ -405,16 +402,16 @@ function App() {
                 {/* Filter Row 2: Genres in Results */}
                 {availableResultGenres.length > 1 && (
                   <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                    <span className="text-xs text-blue-950/60 flex items-center gap-1 shrink-0 font-black uppercase tracking-wider">
-                      <Film className="w-3 h-3 text-blue-950" /> Genre:
+                    <span className="text-xs text-white/50 flex items-center gap-1 shrink-0 font-bold uppercase tracking-wider">
+                      <Film className="w-3 h-3 text-amber-400" /> Genre:
                     </span>
                     <button
                       type="button"
                       onClick={() => setActiveFilterGenre("all")}
                       className={`px-3 py-1 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer ${
                         activeFilterGenre === "all"
-                          ? "bg-blue-950/15 text-blue-950 font-black border-2 border-blue-950 shadow-sm"
-                          : "bg-transparent text-blue-950/70 hover:bg-blue-950/5 hover:text-blue-950 border border-blue-950/20"
+                          ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                          : "bg-white/10 text-white/70 hover:bg-white/20 border border-white/10"
                       }`}
                     >
                       All Genres
@@ -428,12 +425,12 @@ function App() {
                           onClick={() => setActiveFilterGenre(isCurrent ? "all" : g.name)}
                           className={`px-3 py-1 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
                             isCurrent
-                              ? "bg-blue-950/15 text-blue-950 font-black border-2 border-blue-950 shadow-sm"
-                              : "bg-transparent text-blue-950/70 hover:bg-blue-950/5 hover:text-blue-950 border border-blue-950/20"
+                              ? "bg-amber-400 text-slate-950 shadow-md font-extrabold"
+                              : "bg-white/10 text-white/70 hover:bg-white/20 border border-white/10"
                           }`}
                         >
                           <span>{g.name}</span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-transparent border border-blue-950/20 text-blue-950 font-bold">
+                          <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isCurrent ? 'bg-slate-950 text-amber-300' : 'bg-white/10 text-white/60'}`}>
                             {g.count}
                           </span>
                         </button>
@@ -445,14 +442,14 @@ function App() {
 
               {/* Filter Notice when 0 matches for active filters */}
               {processedMovies.length === 0 && (
-                <div className="text-center text-blue-950 py-16 max-w-md mx-auto bg-transparent rounded-3xl border border-blue-950/25 backdrop-blur-xl px-6 shadow-sm">
-                  <Film className="w-10 h-10 mx-auto mb-3 text-blue-950/50" />
-                  <p className="text-lg font-black text-blue-950">No movies match the selected filters.</p>
-                  <p className="text-xs text-blue-900/70 font-medium mt-1 mb-4">Try resetting language or genre filters to see all results.</p>
+                <div className="text-center text-white/70 py-16 max-w-md mx-auto bg-slate-950/60 rounded-3xl border border-white/10 backdrop-blur-xl px-6">
+                  <Film className="w-10 h-10 mx-auto mb-3 text-amber-400/50" />
+                  <p className="text-lg font-bold text-white">No movies match the selected filters.</p>
+                  <p className="text-xs text-white/60 mt-1 mb-4">Try resetting language or genre filters to see all results.</p>
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="px-4 py-2 rounded-xl text-xs font-black bg-transparent border border-blue-950/30 text-blue-950 hover:bg-blue-950/10 transition-all cursor-pointer"
+                    className="px-4 py-2 rounded-xl text-xs font-bold bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-md transition-all cursor-pointer"
                   >
                     Reset All Filters
                   </button>
@@ -479,17 +476,17 @@ function App() {
                   {genreGroups.map((group) => (
                     <section key={group.name} className="space-y-4">
                       {/* Section Header */}
-                      <div className="flex items-center justify-between bg-transparent px-5 py-3 rounded-2xl border border-blue-950/20 backdrop-blur-md">
+                      <div className="flex items-center justify-between bg-slate-950/50 px-5 py-3 rounded-2xl border border-white/10 backdrop-blur-md">
                         <div className="flex items-center gap-3">
-                          <div className="p-2 rounded-xl bg-transparent border border-blue-950/30 text-blue-950">
+                          <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
                             <Film className="w-5 h-5" />
                           </div>
                           <div>
-                            <h4 className="text-lg sm:text-xl font-black text-blue-950">{group.config.label}</h4>
-                            <p className="text-xs text-blue-900/70 font-medium">Curated recommendations matching this genre</p>
+                            <h4 className="text-lg sm:text-xl font-black text-white">{group.config.label}</h4>
+                            <p className="text-xs text-white/60">Curated recommendations matching this genre</p>
                           </div>
                         </div>
-                        <span className="px-3 py-1 rounded-full bg-transparent border border-blue-950/30 text-blue-950 text-xs font-black">
+                        <span className="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-extrabold">
                           {group.movies.length} {group.movies.length === 1 ? "Movie" : "Movies"}
                         </span>
                       </div>

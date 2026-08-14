@@ -163,11 +163,11 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
       {/* Sleek Minimal Header */}
       <div className="flex items-center justify-between mb-2.5 px-1">
         <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-blue-950" />
-          <span className="text-xs font-black text-blue-950 uppercase tracking-wider">
+          <Layers className="w-3.5 h-3.5 text-amber-400" />
+          <span className="text-xs font-bold text-white/80 uppercase tracking-wider">
             Genres
           </span>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-transparent border border-blue-950/25 text-blue-950">
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-white/50">
             15
           </span>
         </div>
@@ -181,8 +181,8 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
             aria-label="Scroll genres left"
             className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollLeft
-                ? "bg-transparent hover:bg-blue-950/10 text-blue-950 border-blue-950/30 hover:border-blue-950 shadow-sm"
-                : "bg-transparent text-blue-950/20 border-blue-950/10 cursor-not-allowed"
+                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
+                : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -194,8 +194,8 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
             aria-label="Scroll genres right"
             className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollRight
-                ? "bg-transparent hover:bg-blue-950/10 text-blue-950 border-blue-950/30 hover:border-blue-950 shadow-sm"
-                : "bg-transparent text-blue-950/20 border-blue-950/10 cursor-not-allowed"
+                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
+                : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
             <ChevronRight className="w-3.5 h-3.5" />
@@ -205,6 +205,16 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
 
       {/* Carousel Track Container */}
       <div className="relative">
+        {/* Left Fade Gradient */}
+        {canScrollLeft && (
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none rounded-l-xl" />
+        )}
+        
+        {/* Right Fade Gradient */}
+        {canScrollRight && (
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none rounded-r-xl" />
+        )}
+
         {/* Scrollable Compact Pills/Cards */}
         <div
           ref={scrollRef}
@@ -223,13 +233,13 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
                 disabled={isLoading}
                 className={`snap-start shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl border backdrop-blur-md transition-all duration-150 cursor-pointer ${
                   isSelected
-                    ? "bg-blue-950/15 text-blue-950 font-black border-2 border-blue-950 shadow-md shadow-blue-950/10 scale-105"
-                    : "bg-transparent hover:bg-blue-950/5 text-blue-950 border border-blue-950/30 hover:border-blue-950"
+                    ? "bg-amber-400 text-slate-950 font-bold border-amber-300 shadow-md shadow-amber-400/20 scale-105"
+                    : `bg-slate-900/80 text-white/80 ${genre.accent}`
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-blue-950" />
-                <span className="text-xs font-bold text-blue-950 whitespace-nowrap">{genre.name}</span>
-                <span className="text-[10px] text-blue-950/60 font-medium whitespace-nowrap">
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? 'bg-slate-950' : genre.dot}`} />
+                <span className="text-xs font-semibold whitespace-nowrap">{genre.name}</span>
+                <span className={`text-[10px] whitespace-nowrap ${isSelected ? 'text-slate-800' : 'text-white/40'}`}>
                   {genre.tagline}
                 </span>
               </motion.button>
