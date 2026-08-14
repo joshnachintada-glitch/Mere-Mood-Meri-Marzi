@@ -107,25 +107,25 @@ FAST_MOOD_MAP: Dict[str, dict] = {
         "original_language": "all"
     },
     "action": {
-        "primary_genre_ids": [28, 12, 53],
+        "primary_genre_ids": [28],
         "keywords": ["action", "thrill", "high-octane", "intense", "heroic"],
         "tone_summary": "High-octane action, adrenaline-pumping sequences, and heroic thrills.",
         "original_language": "all"
     },
     "action movies with intense thrill and high energy": {
-        "primary_genre_ids": [28, 12, 53],
+        "primary_genre_ids": [28],
         "keywords": ["action", "thrill", "high-octane", "intense", "heroic"],
         "tone_summary": "High-octane action, thrilling sequences, and adrenaline-pumping cinematic excitement.",
         "original_language": "all"
     },
     "comedy": {
-        "primary_genre_ids": [35, 10751],
+        "primary_genre_ids": [35],
         "keywords": ["comedy", "humor", "feel-good", "laughter", "fun"],
         "tone_summary": "Laugh-out-loud comedy and feel-good humor to brighten your spirits.",
         "original_language": "all"
     },
     "hilarious comedy movies with feel-good laughter": {
-        "primary_genre_ids": [35, 10751],
+        "primary_genre_ids": [35],
         "keywords": ["comedy", "humor", "feel-good", "laughter", "fun"],
         "tone_summary": "Hilarious comedy and heartwarming laughter that will leave you smiling.",
         "original_language": "all"
@@ -143,127 +143,127 @@ FAST_MOOD_MAP: Dict[str, dict] = {
         "original_language": "all"
     },
     "horror": {
-        "primary_genre_ids": [27, 53],
+        "primary_genre_ids": [27],
         "keywords": ["horror", "scary", "supernatural", "suspense", "chilling"],
         "tone_summary": "Spine-chilling scares, eerie tension, and terrifying suspense.",
         "original_language": "all"
     },
     "chilling and scary horror movies": {
-        "primary_genre_ids": [27, 53],
+        "primary_genre_ids": [27],
         "keywords": ["horror", "scary", "supernatural", "suspense", "chilling"],
         "tone_summary": "Spine-chilling horror and atmospheric suspense to keep you on the edge.",
         "original_language": "all"
     },
     "sci-fi": {
-        "primary_genre_ids": [878, 12],
+        "primary_genre_ids": [878],
         "keywords": ["sci-fi", "futuristic", "technology", "mind-bending", "space"],
         "tone_summary": "Mind-bending sci-fi concepts, futuristic technology, and visionary adventures.",
         "original_language": "all"
     },
     "science fiction": {
-        "primary_genre_ids": [878, 12],
+        "primary_genre_ids": [878],
         "keywords": ["sci-fi", "futuristic", "technology", "mind-bending", "space"],
         "tone_summary": "Mind-bending sci-fi concepts, futuristic technology, and visionary adventures.",
         "original_language": "all"
     },
     "science fiction (sci-fi)": {
-        "primary_genre_ids": [878, 12],
+        "primary_genre_ids": [878],
         "keywords": ["sci-fi", "futuristic", "technology", "mind-bending", "space"],
         "tone_summary": "Mind-bending sci-fi concepts, futuristic technology, and visionary adventures.",
         "original_language": "all"
     },
     "futuristic science fiction and mind-bending sci-fi movies": {
-        "primary_genre_ids": [878, 12],
+        "primary_genre_ids": [878],
         "keywords": ["sci-fi", "futuristic", "technology", "mind-bending", "space"],
         "tone_summary": "Mind-bending sci-fi concepts, futuristic technology, and visionary adventures.",
         "original_language": "all"
     },
     "fantasy": {
-        "primary_genre_ids": [14, 12],
+        "primary_genre_ids": [14],
         "keywords": ["fantasy", "magic", "mythology", "adventure", "epic"],
         "tone_summary": "Enchanting fantasy worlds, magical quests, and legendary mythology.",
         "original_language": "all"
     },
     "magical fantasy and mythical adventure movies": {
-        "primary_genre_ids": [14, 12],
+        "primary_genre_ids": [14],
         "keywords": ["fantasy", "magic", "mythology", "adventure", "epic"],
         "tone_summary": "Enchanting fantasy worlds, magical quests, and legendary mythology.",
         "original_language": "all"
     },
     "thriller": {
-        "primary_genre_ids": [53, 9648, 80],
+        "primary_genre_ids": [53],
         "keywords": ["thriller", "suspense", "mystery", "investigation", "twist"],
         "tone_summary": "Edge-of-your-seat suspense, mystery, and unexpected plot twists.",
         "original_language": "all"
     },
     "thriller & suspense": {
-        "primary_genre_ids": [53, 9648, 80],
+        "primary_genre_ids": [53],
         "keywords": ["thriller", "suspense", "mystery", "investigation", "twist"],
         "tone_summary": "Edge-of-your-seat suspense, mystery, and unexpected plot twists.",
         "original_language": "all"
     },
     "gripping thriller, suspense and mystery movies": {
-        "primary_genre_ids": [53, 9648, 80],
+        "primary_genre_ids": [53],
         "keywords": ["thriller", "suspense", "mystery", "investigation", "twist"],
         "tone_summary": "Gripping suspense, thrilling investigations, and mind-bending mystery.",
         "original_language": "all"
     },
     "romance": {
-        "primary_genre_ids": [10749, 35],
+        "primary_genre_ids": [10749],
         "keywords": ["romance", "love", "heartwarming", "feel-good", "chemistry"],
         "tone_summary": "Heartwarming romance, sparkling chemistry, and endearing love stories.",
         "original_language": "all"
     },
     "heartwarming romantic love story movies": {
-        "primary_genre_ids": [10749, 35],
+        "primary_genre_ids": [10749],
         "keywords": ["romance", "love", "heartwarming", "feel-good", "chemistry"],
         "tone_summary": "Heartwarming romance, sparkling chemistry, and endearing love stories.",
         "original_language": "all"
     },
     "anime": {
-        "primary_genre_ids": [16, 14],
+        "primary_genre_ids": [16],
         "keywords": ["anime", "animation", "japanese", "visuals", "storytelling"],
         "tone_summary": "Visually breathtaking anime cinema with profound emotions and artistic world-building.",
         "original_language": "ja"
     },
     "masterpiece anime movies with stunning animation and storytelling": {
-        "primary_genre_ids": [16, 14],
+        "primary_genre_ids": [16],
         "keywords": ["anime", "animation", "japanese", "visuals", "storytelling"],
         "tone_summary": "Visually breathtaking anime cinema with profound emotions and artistic world-building.",
         "original_language": "ja"
     },
     "adventure": {
-        "primary_genre_ids": [12, 28, 14],
+        "primary_genre_ids": [12],
         "keywords": ["adventure", "journey", "quest", "exploration", "survival"],
         "tone_summary": "Epic journeys, thrilling expeditions, and daring explorations.",
         "original_language": "all"
     },
     "epic adventure, exploration, and journey movies": {
-        "primary_genre_ids": [12, 28, 14],
+        "primary_genre_ids": [12],
         "keywords": ["adventure", "journey", "quest", "exploration", "survival"],
         "tone_summary": "Epic journeys, thrilling expeditions, and daring explorations.",
         "original_language": "all"
     },
     "crime": {
-        "primary_genre_ids": [80, 53],
+        "primary_genre_ids": [80],
         "keywords": ["crime", "gangster", "underworld", "investigation", "gritty"],
         "tone_summary": "Gritty crime dramas, mafia sagas, and intense underworld investigations.",
         "original_language": "all"
     },
     "intense crime, underworld, and mafia sagas": {
-        "primary_genre_ids": [80, 53],
+        "primary_genre_ids": [80],
         "keywords": ["crime", "gangster", "underworld", "investigation", "gritty"],
         "tone_summary": "Gritty crime dramas, mafia sagas, and intense underworld investigations.",
         "original_language": "all"
     },
     "family": {
-        "primary_genre_ids": [10751, 16, 35],
+        "primary_genre_ids": [10751],
         "keywords": ["family", "wholesome", "adventure", "fun", "kids"],
         "tone_summary": "Wholesome, entertaining, and magical movies crafted for the entire family.",
         "original_language": "all"
     },
     "wholesome, magical family movies for all ages": {
-        "primary_genre_ids": [10751, 16, 35],
+        "primary_genre_ids": [10751],
         "keywords": ["family", "wholesome", "adventure", "fun", "kids"],
         "tone_summary": "Wholesome, entertaining, and magical movies crafted for the entire family.",
         "original_language": "all"
@@ -281,27 +281,63 @@ FAST_MOOD_MAP: Dict[str, dict] = {
         "original_language": "all"
     },
     "mystery": {
-        "primary_genre_ids": [9648, 53, 80],
+        "primary_genre_ids": [9648],
+        "keywords": ["mystery", "investigation", "whodunit", "clues", "detective"],
+        "tone_summary": "Intriguing mysteries, suspenseful investigations, and clever detective puzzles.",
+        "original_language": "all"
+    },
+    "intriguing mysteries, suspenseful investigations, and clever detective puzzles": {
+        "primary_genre_ids": [9648],
         "keywords": ["mystery", "investigation", "whodunit", "clues", "detective"],
         "tone_summary": "Intriguing mysteries, suspenseful investigations, and clever detective puzzles.",
         "original_language": "all"
     },
     "history": {
-        "primary_genre_ids": [36, 18],
+        "primary_genre_ids": [36],
+        "keywords": ["history", "historical", "period", "biopic", "epic"],
+        "tone_summary": "Magnificent historical epics and monumental biographical stories.",
+        "original_language": "all"
+    },
+    "magnificent historical epics and monumental biographical stories": {
+        "primary_genre_ids": [36],
         "keywords": ["history", "historical", "period", "biopic", "epic"],
         "tone_summary": "Magnificent historical epics and monumental biographical stories.",
         "original_language": "all"
     },
     "war": {
-        "primary_genre_ids": [10752, 28, 18],
+        "primary_genre_ids": [10752],
+        "keywords": ["war", "battlefield", "soldier", "military", "heroic"],
+        "tone_summary": "Gripping war dramas, heroic bravery, and epic combat sagas.",
+        "original_language": "all"
+    },
+    "gripping war dramas, heroic bravery, and epic combat sagas": {
+        "primary_genre_ids": [10752],
         "keywords": ["war", "battlefield", "soldier", "military", "heroic"],
         "tone_summary": "Gripping war dramas, heroic bravery, and epic combat sagas.",
         "original_language": "all"
     },
     "music": {
+        "primary_genre_ids": [10402],
+        "keywords": ["music", "songs", "dance", "soundtrack", "concert"],
+        "tone_summary": "Rhythmic musical spectacles, memorable tunes, and melodious journeys.",
+        "original_language": "all"
+    },
+    "music & musical": {
+        "primary_genre_ids": [10402],
+        "keywords": ["music", "songs", "dance", "soundtrack", "concert"],
+        "tone_summary": "Rhythmic musical spectacles, memorable tunes, and melodious journeys.",
+        "original_language": "all"
+    },
+    "melodious musical spectacles, rhythmic songs, and dance": {
+        "primary_genre_ids": [10402],
+        "keywords": ["music", "songs", "dance", "soundtrack", "concert"],
+        "tone_summary": "Rhythmic musical spectacles, memorable tunes, and melodious journeys.",
+        "original_language": "all"
+    },
+    "soulful musical journeys, melodious rhythms, and dance": {
         "primary_genre_ids": [10402, 18, 35],
         "keywords": ["music", "dance", "songs", "rhythm", "melody"],
-        "tone_summary": "Soulful musical journeys, melodious rhythms, and artistic inspiration.",
+        "tone_summary": "Soulful musical journeys, melodious rhythms, and dance.",
         "original_language": "all"
     },
     "k-drama": {
