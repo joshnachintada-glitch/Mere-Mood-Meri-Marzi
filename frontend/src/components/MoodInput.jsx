@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, Globe2, Sparkles, ChevronDown, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LiquidButton } from '@/components/ui/liquid-glass-button';
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 
 export const LANGUAGES = [
   { code: "all", name: "All Indian & Global Films", label: "🌟 All Languages", region: "Pan-India & Global" },
@@ -173,14 +173,16 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             className="w-full bg-transparent px-4 py-3 outline-none text-base md:text-lg text-white placeholder:text-white/40"
             disabled={isLoading}
           />
-          <button 
+          <HoverBorderGradient 
+            as="button"
             type="submit" 
             disabled={isLoading}
-            className="rounded-xl px-6 py-3 bg-gradient-to-r from-amber-500 to-pink-600 hover:from-amber-400 hover:to-pink-500 text-white font-bold whitespace-nowrap shadow-lg transition-colors flex items-center gap-2 cursor-pointer shrink-0"
+            containerClassName="rounded-xl shrink-0 border-0"
+            className="rounded-xl px-6 py-3 bg-gradient-to-r from-amber-500 via-pink-600 to-indigo-600 hover:from-amber-400 hover:via-pink-500 hover:to-indigo-500 text-white font-bold whitespace-nowrap shadow-lg flex items-center gap-2"
           >
             <Search className="w-4 h-4" />
             <span className="hidden sm:inline">Explore Films</span>
-          </button>
+          </HoverBorderGradient>
         </div>
       </form>
     </div>
