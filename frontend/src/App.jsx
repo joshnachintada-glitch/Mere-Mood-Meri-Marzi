@@ -101,7 +101,7 @@ function App() {
               <div>
                 <h3 className="text-2xl font-extrabold flex items-center gap-2">
                   <Film className="w-6 h-6 text-amber-400" />
-                  Your Movie Matches ({displayedMovies.length})
+                  Your Movie Matches
                 </h3>
                 {moodAnalysis?.tone_summary && (
                   <p className="text-sm text-white/70 mt-1 flex items-center gap-1.5">
@@ -138,25 +138,22 @@ function App() {
                       : "bg-white/10 text-white/70 hover:bg-white/20"
                   }`}
                 >
-                  All ({movies.length})
+                  All
                 </button>
-                {availableResultLangs.map((l) => {
-                  const count = movies.filter(m => m.language_code === l.code).length;
-                  return (
-                    <button
-                      key={l.code}
-                      type="button"
-                      onClick={() => setActiveFilterLang(l.code)}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all shrink-0 ${
-                        activeFilterLang === l.code
-                          ? "bg-amber-400 text-slate-950 shadow"
-                          : "bg-white/10 text-white/70 hover:bg-white/20"
-                      }`}
-                    >
-                      {l.name} ({count})
-                    </button>
-                  );
-                })}
+                {availableResultLangs.map((l) => (
+                  <button
+                    key={l.code}
+                    type="button"
+                    onClick={() => setActiveFilterLang(l.code)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all shrink-0 ${
+                      activeFilterLang === l.code
+                        ? "bg-amber-400 text-slate-950 shadow"
+                        : "bg-white/10 text-white/70 hover:bg-white/20"
+                    }`}
+                  >
+                    {l.name}
+                  </button>
+                ))}
               </div>
             )}
             
