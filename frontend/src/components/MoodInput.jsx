@@ -71,7 +71,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
       {/* Hero Heading */}
       <div className="text-center mb-8">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-3 drop-shadow-xl tracking-tight text-white">
-          Mere Mood, <span className="text-amber-400">Meri Marzi</span>
+          Mere Mood, Meri Marzi
         </h2>
         <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
           Discover movies arranged across all Indian & global cinema industries tailored to your exact mood, genre, and vibes.
