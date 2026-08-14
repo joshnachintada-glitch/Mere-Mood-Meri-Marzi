@@ -77,18 +77,14 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
   return (
     <div className="w-full max-w-4xl mx-auto mt-8 mb-12 px-4">
       {/* Hero Heading */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
-      >
+      <div className="text-center mb-8">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg tracking-tight text-white">
           Mere Mood, Meri Marzi
         </h2>
         <p className="text-lg text-white/70 max-w-2xl mx-auto">
           Discover movies across all Indian languages & genres tailored to your exact mood and vibes.
         </p>
-      </motion.div>
+      </div>
 
       {/* Language Dropdown Menu Bar */}
       <div className="flex justify-center mb-6 relative z-30" ref={dropdownRef}>
@@ -188,7 +184,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
           >
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4" />
-              <span className="hidden sm:inline">{isLoading ? "Searching..." : "Explore Films"}</span>
+              <span className="hidden sm:inline">Explore Films</span>
             </div>
           </LiquidButton>
         </div>

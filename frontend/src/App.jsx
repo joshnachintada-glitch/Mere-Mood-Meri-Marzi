@@ -16,26 +16,11 @@ function App() {
   const [activeFilterLang, setActiveFilterLang] = useState("all");
   const resultsRef = useRef(null);
 
-  // Smoothly scroll to results when movies are loaded
-  useEffect(() => {
-    if (movies.length > 0 && resultsRef.current) {
-      setTimeout(() => {
-        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 150);
-    }
-  }, [movies]);
-
   const handleSearch = async (mood, language = selectedLanguage) => {
     setIsLoading(true);
     setError(null);
     setHasSearched(true);
-    setMovies([]);
     setActiveFilterLang("all");
-
-    // Immediately auto-scroll down to results/loading area
-    setTimeout(() => {
-      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
     
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
@@ -109,7 +94,7 @@ function App() {
             </div>
           )}
 
-          {movies.length > 0 && !isLoading && (
+          {movies.length > 0 && (
             <div>
               {/* Header & Vibes */}
             <div className="flex items-center justify-between mb-6 flex-wrap gap-4 bg-slate-950/40 p-4 rounded-2xl border border-white/10 backdrop-blur-md">

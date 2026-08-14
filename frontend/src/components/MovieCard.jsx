@@ -1,6 +1,5 @@
 import React from 'react';
 import { Star, Play, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export default function MovieCard({ movie }) {
   const defaultPoster = "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=500&q=80";
@@ -9,13 +8,9 @@ export default function MovieCard({ movie }) {
     : defaultPoster;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.2 }}
+    <div 
       onClick={() => window.open(movie.watch_link, '_blank', 'noopener,noreferrer')}
-      className="glass-panel rounded-2xl overflow-hidden flex flex-col h-full group cursor-pointer border border-white/10 hover:border-amber-400/50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-amber-500/10"
+      className="glass-panel rounded-2xl overflow-hidden flex flex-col h-full group cursor-pointer border border-white/10 hover:border-amber-400/50 transition-colors duration-200 shadow-xl"
     >
       {/* Poster Image Container */}
       <div className="relative aspect-[2/3] overflow-hidden bg-slate-900">
@@ -105,6 +100,6 @@ export default function MovieCard({ movie }) {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
