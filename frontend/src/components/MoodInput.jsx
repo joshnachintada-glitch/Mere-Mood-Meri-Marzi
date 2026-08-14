@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Search, Globe2, Sparkles, ChevronDown, Check, X, Compass, Flame, Laugh, Rocket, Sparkle } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Search, Globe2, Sparkles, ChevronDown, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
+import GenreCarousel from './GenreCarousel';
 
 export const LANGUAGES = [
   { code: "all", name: "All Indian & Global Films", label: "🌟 All Languages", region: "Pan-India & Global" },
@@ -22,55 +23,13 @@ export const LANGUAGES = [
   { code: "en", name: "English", label: "🌐 English", region: "Global / Hollywood" },
 ];
 
-export const GENRE_CATEGORIES = [
-  { id: "all", label: "✨ All Moods" },
-  { id: "action_thrill", label: "🔥 Action & Thrill" },
-  { id: "comedy_romance", label: "❤️ Comedy & Romance" },
-  { id: "scifi_fantasy", label: "🚀 Sci-Fi & Mystery" },
-  { id: "world_cinema", label: "🎌 Anime & Drama" },
-];
-
-export const GENRE_PRESETS = [
-  // Action & Thrill
-  { id: "action", label: "🔥 Action", category: "action_thrill", prompt: "Action movies with intense thrill and high energy" },
-  { id: "thriller", label: "🔍 Thriller", category: "action_thrill", prompt: "Gripping thriller, suspense and mystery movies" },
-  { id: "crime", label: "🕵️ Crime", category: "action_thrill", prompt: "Intense crime, underworld, and mafia sagas" },
-  { id: "adventure", label: "🗺️ Adventure", category: "action_thrill", prompt: "Epic adventure, exploration, and journey movies" },
-  { id: "war", label: "⚔️ War", category: "action_thrill", prompt: "Gripping war dramas, heroic bravery, and epic combat sagas" },
-  
-  // Comedy & Romance
-  { id: "comedy", label: "😂 Comedy", category: "comedy_romance", prompt: "Hilarious comedy movies with feel-good laughter" },
-  { id: "romance", label: "❤️ Romance", category: "comedy_romance", prompt: "Heartwarming romantic love story movies" },
-  { id: "family", label: "👨‍👩‍👧 Family", category: "comedy_romance", prompt: "Wholesome, magical family movies for all ages" },
-  { id: "music", label: "🎵 Musical", category: "comedy_romance", prompt: "Soulful musical journeys, melodious rhythms, and dance" },
-  
-  // Sci-Fi & Mystery
-  { id: "scifi", label: "🚀 Sci-Fi", category: "scifi_fantasy", prompt: "Futuristic science fiction and mind-bending Sci-Fi movies" },
-  { id: "fantasy", label: "✨ Fantasy", category: "scifi_fantasy", prompt: "Magical fantasy and mythical adventure movies" },
-  { id: "horror", label: "👻 Horror", category: "scifi_fantasy", prompt: "Chilling and scary horror movies" },
-  { id: "mystery", label: "🧩 Mystery", category: "scifi_fantasy", prompt: "Intriguing mysteries, suspenseful investigations, and clever detective puzzles" },
-
-  // World & Drama
-  { id: "drama", label: "🎭 Drama", category: "world_cinema", prompt: "Emotional and powerful drama movies" },
-  { id: "kdrama", label: "🫰 K-Drama", category: "world_cinema", prompt: "Top Korean movies and K-drama romantic thrillers" },
-  { id: "anime", label: "🎌 Anime", category: "world_cinema", prompt: "Masterpiece anime movies with stunning animation and storytelling" },
-  { id: "history", label: "📜 History", category: "world_cinema", prompt: "Magnificent historical epics and monumental biographical stories" },
-];
-
 export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSelectedLanguage }) {
   const [customMood, setCustomMood] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedPresetId, setSelectedPresetId] = useState(null);
+  const [selectedGenreId, setSelectedGenreId] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const selectedLangObj = LANGUAGES.find(l => l.code === selectedLanguage) || LANGUAGES[0];
-
-  // Filtered genre presets based on active category tab
-  const displayedPresets = useMemo(() => {
-    if (activeCategory === "all") return GENRE_PRESETS;
-    return GENRE_PRESETS.filter(p => p.category === activeCategory);
-  }, [activeCategory]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -83,10 +42,10 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handlePresetClick = (preset) => {
-    setSelectedPresetId(preset.id);
-    setCustomMood(preset.prompt);
-    onSearch(preset.prompt, selectedLanguage);
+  const handleSelectGenre = (genre) => {
+    setSelectedGenreId(genre.id);
+    setCustomMood(genre.prompt);
+    onSearch(genre.prompt, selectedLanguage);
   };
 
   const handleSelectLanguage = (langCode) => {
@@ -104,7 +63,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
 
   const handleClear = () => {
     setCustomMood("");
-    setSelectedPresetId(null);
+    setSelectedGenreId(null);
   };
 
   return (
@@ -181,60 +140,12 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
         </div>
       </div>
 
-      {/* Genre Categories Nav Tabs */}
-      <div className="flex items-center justify-center gap-1.5 mb-3 flex-wrap">
-        {GENRE_CATEGORIES.map((cat) => {
-          const isActive = activeCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
-                isActive
-                  ? "bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20 font-extrabold scale-105"
-                  : "bg-slate-900/60 text-white/70 hover:bg-slate-800 hover:text-white border border-white/10"
-              }`}
-            >
-              {cat.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Categorized Genre Presets Grid */}
-      <div className="mb-6">
-        <motion.div 
-          layout
-          className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto"
-        >
-          <AnimatePresence>
-            {displayedPresets.map((preset) => {
-              const isSelected = selectedPresetId === preset.id || customMood === preset.prompt;
-              return (
-                <motion.button
-                  key={preset.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.15 }}
-                  type="button"
-                  onClick={() => handlePresetClick(preset)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-sm backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
-                    isSelected
-                      ? "bg-gradient-to-r from-amber-400 to-amber-300 text-slate-950 font-bold border border-amber-200 shadow-amber-500/20 shadow-md scale-105"
-                      : "bg-slate-900/80 text-blue-100/90 border border-white/15 hover:border-amber-400/50 hover:bg-slate-800 hover:text-white"
-                  }`}
-                  disabled={isLoading}
-                >
-                  <span>{preset.label}</span>
-                </motion.button>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+      {/* 🌟 15-Genre Interactive Carousel */}
+      <GenreCarousel
+        onSelectGenre={handleSelectGenre}
+        selectedGenreId={selectedGenreId}
+        isLoading={isLoading}
+      />
 
       {/* Freeform Search Bar */}
       <form onSubmit={handleSubmit} className="relative max-w-3xl mx-auto">
@@ -244,7 +155,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             value={customMood}
             onChange={(e) => {
               setCustomMood(e.target.value);
-              setSelectedPresetId(null);
+              setSelectedGenreId(null);
             }}
             placeholder="e.g. 'Mind-bending murder mystery with a crazy twist' or 'Chill feel-good romance'..."
             className="w-full bg-transparent px-4 py-3 outline-none text-base md:text-lg text-white placeholder:text-white/40"
@@ -277,3 +188,4 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
     </div>
   );
 }
+
