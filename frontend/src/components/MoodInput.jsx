@@ -22,15 +22,18 @@ export const LANGUAGES = [
 ];
 
 export const GENRE_PRESETS = [
-  { label: "Action", prompt: "Action movies with intense thrill and high energy" },
-  { label: "Comedy", prompt: "Hilarious comedy movies with feel-good laughter" },
-  { label: "Drama", prompt: "Emotional and powerful drama movies" },
-  { label: "Horror", prompt: "Chilling and scary horror movies" },
-  { label: "Science Fiction (Sci-Fi)", prompt: "Futuristic science fiction and mind-bending Sci-Fi movies" },
-  { label: "Fantasy", prompt: "Magical fantasy and mythical adventure movies" },
-  { label: "Thriller & Suspense", prompt: "Gripping thriller, suspense and mystery movies" },
-  { label: "Romance", prompt: "Heartwarming romantic love story movies" },
-  { label: "Anime", prompt: "Masterpiece anime movies with stunning animation and storytelling" },
+  { label: "🔥 Action", prompt: "Action movies with intense thrill and high energy" },
+  { label: "😂 Comedy", prompt: "Hilarious comedy movies with feel-good laughter" },
+  { label: "🎭 Drama", prompt: "Emotional and powerful drama movies" },
+  { label: "👻 Horror", prompt: "Chilling and scary horror movies" },
+  { label: "🚀 Sci-Fi", prompt: "Futuristic science fiction and mind-bending Sci-Fi movies" },
+  { label: "✨ Fantasy", prompt: "Magical fantasy and mythical adventure movies" },
+  { label: "🔍 Thriller", prompt: "Gripping thriller, suspense and mystery movies" },
+  { label: "❤️ Romance", prompt: "Heartwarming romantic love story movies" },
+  { label: "🎌 Anime", prompt: "Masterpiece anime movies with stunning animation and storytelling" },
+  { label: "🗺️ Adventure", prompt: "Epic adventure, exploration, and journey movies" },
+  { label: "🕵️ Crime", prompt: "Intense crime, underworld, and mafia sagas" },
+  { label: "👨‍👩‍👧 Family", prompt: "Wholesome, magical family movies for all ages" },
 ];
 
 export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSelectedLanguage }) {
@@ -59,16 +62,14 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
   const handleSelectLanguage = (langCode) => {
     setSelectedLanguage(langCode);
     setIsDropdownOpen(false);
-    if (customMood.trim()) {
-      onSearch(customMood, langCode);
-    }
+    const query = customMood.trim() || "Top rated movies across all genres and industries";
+    onSearch(query, langCode);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (customMood.trim()) {
-      onSearch(customMood, selectedLanguage);
-    }
+    const query = customMood.trim() || "Top rated movies across all genres and industries";
+    onSearch(query, selectedLanguage);
   };
 
   return (
@@ -179,7 +180,7 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
           />
           <LiquidButton 
             type="submit" 
-            disabled={isLoading || !customMood.trim()}
+            disabled={isLoading}
             size="default"
             className="rounded-xl px-5 text-white font-bold whitespace-nowrap"
           >

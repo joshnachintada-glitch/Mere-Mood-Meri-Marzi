@@ -3,9 +3,10 @@ import { Star, Play, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function MovieCard({ movie }) {
+  const defaultPoster = "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=500&q=80";
   const posterUrl = movie.poster_path 
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : 'https://via.placeholder.com/500x750?text=No+Poster';
+    ? (movie.poster_path.startsWith('http') ? movie.poster_path : `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
+    : defaultPoster;
 
   return (
     <motion.div 
