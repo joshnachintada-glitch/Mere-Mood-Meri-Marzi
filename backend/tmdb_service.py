@@ -250,7 +250,8 @@ def format_fallback_movie(movie: dict, mood_tone: str, target_genre_ids: Optiona
         "genres": movie_genre_names[:3],
         "providers": movie.get("providers", []),
         "watch_link": movie.get("watch_link") or f"https://www.themoviedb.org/movie/{movie_id}/watch",
-        "ai_reason": movie.get("ai_reason") or mood_tone or "This movie matches your desired mood perfectly!"
+        "ai_reason": movie.get("ai_reason") or mood_tone or "This movie matches your desired mood perfectly!",
+        "is_direct_search_match": bool(movie.get("is_direct_search_match"))
     }
 
 async def fetch_movie_provider(client: httpx.AsyncClient, movie: dict, region: str, headers: dict, mood_tone: str, target_genre_ids: Optional[set] = None) -> dict:
@@ -331,7 +332,8 @@ async def fetch_movie_provider(client: httpx.AsyncClient, movie: dict, region: s
         "genres": movie_genre_names[:3],
         "providers": providers,
         "watch_link": watch_link or f"https://www.themoviedb.org/movie/{movie_id}/watch",
-        "ai_reason": mood_tone or "This movie matches your desired mood perfectly!"
+        "ai_reason": movie.get("ai_reason") or mood_tone or "This movie matches your desired mood perfectly!",
+        "is_direct_search_match": bool(movie.get("is_direct_search_match"))
     }
 
 async def fetch_cluster_movies(client: httpx.AsyncClient, url: str, base_params: dict, headers: dict, lang_code: str, genre_filter: Optional[str], target_count: int, target_genre_ids: Optional[set] = None) -> list:
@@ -369,7 +371,7 @@ async def fetch_cluster_movies(client: httpx.AsyncClient, url: str, base_params:
         pass
     return []
 
-async def get_movie_recommendations(mood_data: dict, region: str = "IN", explicit_language: str | None = None) -> list:
+async def get_movie_recommendations(mood_data: dict, region: str = "IN", explicit_language: str | None = None, query_text: str | None = None) -> list:
     if not TMDB_API_KEY and not TMDB_ACCESS_TOKEN:
         raise ValueError("TMDB API credentials are not set.")
     
@@ -385,8 +387,8 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
         "include_video": "false",
         "language": "en-US",
         "sort_by": "popularity.desc",
-        "vote_average.gte": 5.0,
-        "vote_count.gte": 10
+        "vote_average.gte": 4.0,
+        "vote_count.gte": 5
     }
     
     headers = {}
@@ -403,49 +405,118 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
     
     results = []
     seen_ids = set()
-    
-    if not target_lang or target_lang.lower() == "all":
-        # 🌟 ALL LANGUAGES MODE (Strict Genre Recommendation across all industries):
-        tasks = []
-        for cluster in MULTI_LANGUAGE_CLUSTERS:
-            # If user asked for Anime explicitly or 16 is in genres, use 16 for Japan
-            cluster_genre = "16" if (cluster["lang"] == "ja" and not target_genre_ids) else genre_filter_str
-            cluster_target_gids = {16} if (cluster["lang"] == "ja" and not target_genre_ids) else target_genre_ids
-            tasks.append(
-                fetch_cluster_movies(client, url, base_params, headers, cluster["lang"], cluster_genre, cluster["weight"] + 2, cluster_target_gids)
-            )
-            
-        cluster_results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Interleave and blend across all language clusters
-        valid_clusters = [cr for cr in cluster_results if isinstance(cr, list) and len(cr) > 0]
-        max_len = max((len(c) for c in valid_clusters), default=0)
-        for idx in range(max_len):
-            for cluster_movies in valid_clusters:
-                if idx < len(cluster_movies):
-                    movie = cluster_movies[idx]
-                    if movie.get("id") not in seen_ids:
-                        if not target_genre_ids or bool(set(movie.get("genre_ids", [])) & target_genre_ids):
-                            seen_ids.add(movie.get("id"))
-                            results.append(movie)
-                            if len(results) >= MAX_RECOMMENDED_MOVIES:
-                                break
-            if len(results) >= MAX_RECOMMENDED_MOVIES:
-                break
-                        
-        # If needed, fetch additional pages for the requested genre to reach 24
-        if len(results) < MAX_RECOMMENDED_MOVIES:
-            extra_tasks = []
-            for p in [1, 2, 3, 4]:
-                extra_params = {**base_params, "page": p}
-                if genre_filter_str:
-                    extra_params["with_genres"] = genre_filter_str
-                extra_tasks.append(client.get(url, params=extra_params, headers=headers))
+
+    # 🔎 STEP 1: Direct TMDB Search if user entered a specific movie title, franchise, or keyword
+    search_query = (query_text or "").strip()
+    is_preset_or_generic = (
+        not search_query 
+        or search_query.lower() in [
+            "explore", "explore films", "explore movies", "all", "all movies", 
+            "top rated movies across all genres and industries"
+        ]
+    )
+
+    if not is_preset_or_generic:
+        try:
+            search_url = f"{BASE_URL}/search/movie"
+            search_params = {
+                "include_adult": "false",
+                "language": "en-US",
+                "query": search_query,
+                "page": 1
+            }
+            if not TMDB_ACCESS_TOKEN:
+                search_params["api_key"] = TMDB_API_KEY
+
+            search_task1 = client.get(search_url, params=search_params, headers=headers)
+            search_task2 = client.get(search_url, params={**search_params, "page": 2}, headers=headers)
+            search_resps = await asyncio.gather(search_task1, search_task2, return_exceptions=True)
+
+            raw_searched = []
+            for s_resp in search_resps:
+                if hasattr(s_resp, "status_code") and s_resp.status_code == 200:
+                    for m in s_resp.json().get("results", []):
+                        if m.get("id") and m.get("title") and m.get("poster_path"):
+                            raw_searched.append(m)
+
+            if raw_searched:
+                q_lower = search_query.lower()
                 
-            extra_res = await asyncio.gather(*extra_tasks, return_exceptions=True)
-            for cr in extra_res:
-                if hasattr(cr, "status_code") and cr.status_code == 200:
-                    for movie in cr.json().get("results", []):
+                # Rank search matches: exact title match > starts with > popularity/votes
+                def search_rank(m):
+                    title = (m.get("title") or "").lower()
+                    orig_title = (m.get("original_title") or "").lower()
+                    exact_match = 1000 if (q_lower == title or q_lower == orig_title) else 0
+                    starts_with = 300 if (title.startswith(q_lower) or orig_title.startswith(q_lower)) else 0
+                    contains_match = 100 if (q_lower in title or q_lower in orig_title) else 0
+                    lang_boost = 150 if (target_lang and target_lang != "all" and m.get("original_language") == target_lang) else 0
+                    pop = float(m.get("popularity") or 0.0)
+                    votes = float(m.get("vote_count") or 0.0)
+                    rating = float(m.get("vote_average") or 0.0)
+                    return exact_match + starts_with + contains_match + lang_boost + min(pop, 100.0) + min(votes / 20.0, 100.0) + rating
+
+                raw_searched.sort(key=search_rank, reverse=True)
+
+                # Filter for quality: official franchise / notable vote counts / title containment
+                for m in raw_searched:
+                    title = (m.get("title") or "").lower()
+                    orig_title = (m.get("original_title") or "").lower()
+                    votes = int(m.get("vote_count") or 0)
+                    pop = float(m.get("popularity") or 0)
+                    is_exact = bool(q_lower == title or q_lower == orig_title or (q_lower in title and (votes >= 10 or pop >= 5.0)))
+                    if is_exact or votes >= 50 or pop >= 15.0:
+                        if m["id"] not in seen_ids:
+                            seen_ids.add(m["id"])
+                            m["is_direct_search_match"] = is_exact
+                            if is_exact:
+                                m["ai_reason"] = f"Official '{search_query}' release matching your search."
+                            results.append(m)
+
+                # Enrich with TMDB recommendations for top matched films
+                if len(results) < MAX_RECOMMENDED_MOVIES and results:
+                    top_ids = [m["id"] for m in results[:3]]
+                    rec_params = {"include_adult": "false", "language": "en-US"}
+                    if not TMDB_ACCESS_TOKEN:
+                        rec_params["api_key"] = TMDB_API_KEY
+                    rec_tasks = [
+                        client.get(f"{BASE_URL}/movie/{mid}/recommendations", params=rec_params, headers=headers)
+                        for mid in top_ids
+                    ]
+                    rec_resps = await asyncio.gather(*rec_tasks, return_exceptions=True)
+                    for r_resp in rec_resps:
+                        if hasattr(r_resp, "status_code") and r_resp.status_code == 200:
+                            for rec_m in r_resp.json().get("results", []):
+                                if rec_m.get("id") and rec_m.get("id") not in seen_ids and rec_m.get("poster_path"):
+                                    if int(rec_m.get("vote_count") or 0) >= 20:
+                                        seen_ids.add(rec_m["id"])
+                                        results.append(rec_m)
+                                        if len(results) >= MAX_RECOMMENDED_MOVIES:
+                                            break
+                        if len(results) >= MAX_RECOMMENDED_MOVIES:
+                            break
+        except Exception:
+            pass
+
+    # 🌟 STEP 2: If we still need more movies (or search was a general mood), run Discover pipeline
+    if len(results) < MAX_RECOMMENDED_MOVIES:
+        if not target_lang or target_lang.lower() == "all":
+            # ALL LANGUAGES MODE (Strict Genre Recommendation across all industries):
+            tasks = []
+            for cluster in MULTI_LANGUAGE_CLUSTERS:
+                cluster_genre = "16" if (cluster["lang"] == "ja" and not target_genre_ids) else genre_filter_str
+                cluster_target_gids = {16} if (cluster["lang"] == "ja" and not target_genre_ids) else target_genre_ids
+                tasks.append(
+                    fetch_cluster_movies(client, url, base_params, headers, cluster["lang"], cluster_genre, cluster["weight"] + 2, cluster_target_gids)
+                )
+                
+            cluster_results = await asyncio.gather(*tasks, return_exceptions=True)
+            
+            valid_clusters = [cr for cr in cluster_results if isinstance(cr, list) and len(cr) > 0]
+            max_len = max((len(c) for c in valid_clusters), default=0)
+            for idx in range(max_len):
+                for cluster_movies in valid_clusters:
+                    if idx < len(cluster_movies):
+                        movie = cluster_movies[idx]
                         if movie.get("id") not in seen_ids:
                             if not target_genre_ids or bool(set(movie.get("genre_ids", [])) & target_genre_ids):
                                 seen_ids.add(movie.get("id"))
@@ -454,33 +525,54 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
                                     break
                 if len(results) >= MAX_RECOMMENDED_MOVIES:
                     break
-    else:
-        # 🎬 SPECIFIC REGIONAL / GLOBAL LANGUAGE MODE (Strict Genre + Language):
-        is_indian_regional = target_lang in ["te", "ta", "ml", "kn", "pa", "mr", "bn", "gu", "or", "as", "ur"]
-        lang_base_params = dict(base_params)
-        if is_indian_regional:
-            lang_base_params.pop("vote_count.gte", None)
-            lang_base_params.pop("vote_average.gte", None)
+                            
+            if len(results) < MAX_RECOMMENDED_MOVIES:
+                extra_tasks = []
+                for p in [1, 2, 3, 4]:
+                    extra_params = {**base_params, "page": p}
+                    if genre_filter_str:
+                        extra_params["with_genres"] = genre_filter_str
+                    extra_tasks.append(client.get(url, params=extra_params, headers=headers))
+                    
+                extra_res = await asyncio.gather(*extra_tasks, return_exceptions=True)
+                for cr in extra_res:
+                    if hasattr(cr, "status_code") and cr.status_code == 200:
+                        for movie in cr.json().get("results", []):
+                            if movie.get("id") not in seen_ids:
+                                if not target_genre_ids or bool(set(movie.get("genre_ids", [])) & target_genre_ids):
+                                    seen_ids.add(movie.get("id"))
+                                    results.append(movie)
+                                    if len(results) >= MAX_RECOMMENDED_MOVIES:
+                                        break
+                    if len(results) >= MAX_RECOMMENDED_MOVIES:
+                        break
+        else:
+            # SPECIFIC REGIONAL / GLOBAL LANGUAGE MODE (Strict Genre + Language):
+            is_indian_regional = target_lang in ["te", "ta", "ml", "kn", "pa", "mr", "bn", "gu", "or", "as", "ur"]
+            lang_base_params = dict(base_params)
+            if is_indian_regional:
+                lang_base_params.pop("vote_count.gte", None)
+                lang_base_params.pop("vote_average.gte", None)
 
-        tasks = []
-        for p in [1, 2, 3, 4, 5]:
-            req_params = {**lang_base_params, "with_original_language": target_lang, "page": p}
-            if genre_filter_str:
-                req_params["with_genres"] = genre_filter_str
-            tasks.append(client.get(url, params=req_params, headers=headers))
-            
-        genre_resps = await asyncio.gather(*tasks, return_exceptions=True)
-        for resp in genre_resps:
-            if hasattr(resp, "status_code") and resp.status_code == 200:
-                for movie in resp.json().get("results", []):
-                    if movie.get("id") not in seen_ids:
-                        if not target_genre_ids or bool(set(movie.get("genre_ids", [])) & target_genre_ids):
-                            seen_ids.add(movie.get("id"))
-                            results.append(movie)
-                            if len(results) >= MAX_RECOMMENDED_MOVIES:
-                                break
-            if len(results) >= MAX_RECOMMENDED_MOVIES:
-                break
+            tasks = []
+            for p in [1, 2, 3, 4, 5]:
+                req_params = {**lang_base_params, "with_original_language": target_lang, "page": p}
+                if genre_filter_str:
+                    req_params["with_genres"] = genre_filter_str
+                tasks.append(client.get(url, params=req_params, headers=headers))
+                
+            genre_resps = await asyncio.gather(*tasks, return_exceptions=True)
+            for resp in genre_resps:
+                if hasattr(resp, "status_code") and resp.status_code == 200:
+                    for movie in resp.json().get("results", []):
+                        if movie.get("id") not in seen_ids:
+                            if not target_genre_ids or bool(set(movie.get("genre_ids", [])) & target_genre_ids):
+                                seen_ids.add(movie.get("id"))
+                                results.append(movie)
+                                if len(results) >= MAX_RECOMMENDED_MOVIES:
+                                    break
+                if len(results) >= MAX_RECOMMENDED_MOVIES:
+                    break
 
     # Take candidate pool (up to 36) to maximize streaming provider coverage
     candidate_pool = results[:36] if len(results) >= MAX_RECOMMENDED_MOVIES else results
@@ -505,9 +597,10 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
             elif i < len(candidate_pool):
                 valid_movies.append(format_fallback_movie(candidate_pool[i], mood_tone, target_genre_ids))
         
-        # Prioritize movies that are currently available on OTT streaming platforms
+        # Prioritize direct title search match first, then OTT streaming availability, then rating
         valid_movies.sort(
             key=lambda m: (
+                1000 if m.get("is_direct_search_match") else 0,
                 len(m.get("providers", [])) > 0,
                 len(m.get("providers", [])),
                 float(m.get("rating") or 0)

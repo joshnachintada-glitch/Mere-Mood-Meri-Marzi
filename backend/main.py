@@ -51,8 +51,8 @@ async def recommend_movies(request: RecommendRequest):
             elif m_data.get("original_language") and m_data.get("original_language").lower() != "all":
                 effective_lang = m_data.get("original_language")
             
-            # Step 2 & 3: Get 24 movie recommendations from TMDB
-            recommendations = await get_movie_recommendations(m_data, request.region, effective_lang)
+            # Step 2 & 3: Get 24 movie recommendations from TMDB (supporting direct title search + recommendations)
+            recommendations = await get_movie_recommendations(m_data, request.region, effective_lang, query_text=request.mood)
             
             return {"movies": recommendations, "mood_analysis": m_data, "effective_language": effective_lang}
 
@@ -77,7 +77,7 @@ async def recommend_movies(request: RecommendRequest):
     except asyncio.TimeoutError:
         effective_lang = request.language if (request.language and request.language.lower() != "all") else None
         try:
-            recommendations = await get_movie_recommendations(fallback_mood, request.region, effective_lang)
+            recommendations = await get_movie_recommendations(fallback_mood, request.region, effective_lang, query_text=request.mood)
         except Exception:
             recommendations = get_static_fallback_movies(effective_lang, fallback_mood.get("primary_genre_ids"))
             
