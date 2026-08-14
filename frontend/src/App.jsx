@@ -211,11 +211,6 @@ function App() {
           {/* Loading Indicator / Skeletons */}
           {isLoading && (
             <div className="py-12 text-center">
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-900/90 border border-amber-400/30 backdrop-blur-xl shadow-2xl mb-8">
-                <Sparkles className="w-5 h-5 text-amber-400 animate-spin" />
-                <span className="text-base font-bold text-amber-300">Arranging movies to match your mood...</span>
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {[...Array(8)].map((_, i) => (
                   <div key={i} className="glass-panel rounded-2xl overflow-hidden animate-pulse flex flex-col h-[420px] bg-slate-900/40 border border-white/10">
