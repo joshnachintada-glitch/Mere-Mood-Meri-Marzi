@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Globe2, Sparkles, ChevronDown, Check, X } from 'lucide-react';
+import { Search, Globe2, ChevronDown, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import GenreCarousel from './GenreCarousel';
@@ -70,9 +70,6 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
     <div className="w-full max-w-5xl mx-auto mt-6 mb-10 px-4">
       {/* Hero Heading */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-3 backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5" /> AI-Powered Movie Recommender
-        </div>
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-3 drop-shadow-xl tracking-tight text-white">
           Mere Mood, <span className="text-amber-400">Meri Marzi</span>
         </h2>
