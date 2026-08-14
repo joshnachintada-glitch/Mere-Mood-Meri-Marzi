@@ -48,7 +48,7 @@ export const CAROUSEL_GENRES = [
     name: "Comedy",
     tagline: "Feel-Good",
     prompt: "Hilarious comedy movies with feel-good laughter",
-    accent: "text-yellow-400 border-yellow-500/30 hover:border-yellow-400",
+    accent: "text-white border-yellow-500/30 hover:border-yellow-400",
     dot: "bg-yellow-400"
   },
   {
