@@ -8,7 +8,7 @@ export const CAROUSEL_GENRES = [
     name: "Action",
     tagline: "High Octane",
     prompt: "Action movies with intense thrill and high energy",
-    accent: "text-amber-400 border-amber-500/30 hover:border-amber-400 bg-amber-500/10",
+    accent: "text-amber-400 border-amber-500/30 hover:border-amber-400",
     dot: "bg-amber-400"
   },
   {
@@ -16,7 +16,7 @@ export const CAROUSEL_GENRES = [
     name: "Thriller",
     tagline: "Suspense",
     prompt: "Gripping thriller, suspense and mystery movies",
-    accent: "text-purple-400 border-purple-500/30 hover:border-purple-400 bg-purple-500/10",
+    accent: "text-purple-400 border-purple-500/30 hover:border-purple-400",
     dot: "bg-purple-400"
   },
   {
@@ -24,7 +24,7 @@ export const CAROUSEL_GENRES = [
     name: "Crime",
     tagline: "Underworld",
     prompt: "Intense crime, underworld, and mafia sagas",
-    accent: "text-zinc-300 border-zinc-500/30 hover:border-zinc-300 bg-zinc-500/10",
+    accent: "text-zinc-300 border-zinc-500/30 hover:border-zinc-300",
     dot: "bg-zinc-300"
   },
   {
@@ -32,7 +32,7 @@ export const CAROUSEL_GENRES = [
     name: "Adventure",
     tagline: "Expedition",
     prompt: "Epic adventure, exploration, and journey movies",
-    accent: "text-emerald-400 border-emerald-500/30 hover:border-emerald-400 bg-emerald-500/10",
+    accent: "text-emerald-400 border-emerald-500/30 hover:border-emerald-400",
     dot: "bg-emerald-400"
   },
   {
@@ -40,7 +40,7 @@ export const CAROUSEL_GENRES = [
     name: "War",
     tagline: "Battlefield",
     prompt: "Gripping war dramas, heroic bravery, and epic combat sagas",
-    accent: "text-red-400 border-red-500/30 hover:border-red-400 bg-red-500/10",
+    accent: "text-red-400 border-red-500/30 hover:border-red-400",
     dot: "bg-red-400"
   },
   {
@@ -48,7 +48,7 @@ export const CAROUSEL_GENRES = [
     name: "Comedy",
     tagline: "Feel-Good",
     prompt: "Hilarious comedy movies with feel-good laughter",
-    accent: "text-yellow-400 border-yellow-500/30 hover:border-yellow-400 bg-yellow-500/10",
+    accent: "text-yellow-400 border-yellow-500/30 hover:border-yellow-400",
     dot: "bg-yellow-400"
   },
   {
@@ -56,7 +56,7 @@ export const CAROUSEL_GENRES = [
     name: "Romance",
     tagline: "Love Story",
     prompt: "Heartwarming romantic love story movies",
-    accent: "text-pink-400 border-pink-500/30 hover:border-pink-400 bg-pink-500/10",
+    accent: "text-pink-400 border-pink-500/30 hover:border-pink-400",
     dot: "bg-pink-400"
   },
   {
@@ -64,7 +64,7 @@ export const CAROUSEL_GENRES = [
     name: "Family",
     tagline: "Wholesome",
     prompt: "Wholesome, magical family movies for all ages",
-    accent: "text-teal-400 border-teal-500/30 hover:border-teal-400 bg-teal-500/10",
+    accent: "text-teal-400 border-teal-500/30 hover:border-teal-400",
     dot: "bg-teal-400"
   },
   {
@@ -72,7 +72,7 @@ export const CAROUSEL_GENRES = [
     name: "Musical",
     tagline: "Soundtrack",
     prompt: "Melodious musical spectacles, rhythmic songs, and dance",
-    accent: "text-fuchsia-400 border-fuchsia-500/30 hover:border-fuchsia-400 bg-fuchsia-500/10",
+    accent: "text-fuchsia-400 border-fuchsia-500/30 hover:border-fuchsia-400",
     dot: "bg-fuchsia-400"
   },
   {
@@ -80,7 +80,7 @@ export const CAROUSEL_GENRES = [
     name: "Sci-Fi",
     tagline: "Futuristic",
     prompt: "Futuristic science fiction and mind-bending Sci-Fi movies",
-    accent: "text-cyan-400 border-cyan-500/30 hover:border-cyan-400 bg-cyan-500/10",
+    accent: "text-cyan-400 border-cyan-500/30 hover:border-cyan-400",
     dot: "bg-cyan-400"
   },
   {
@@ -88,7 +88,7 @@ export const CAROUSEL_GENRES = [
     name: "Fantasy",
     tagline: "Mythical",
     prompt: "Magical fantasy and mythical adventure movies",
-    accent: "text-amber-300 border-amber-400/30 hover:border-amber-300 bg-amber-400/10",
+    accent: "text-amber-300 border-amber-400/30 hover:border-amber-300",
     dot: "bg-amber-300"
   },
   {
@@ -96,7 +96,7 @@ export const CAROUSEL_GENRES = [
     name: "Horror",
     tagline: "Chills",
     prompt: "Chilling and scary horror movies",
-    accent: "text-rose-400 border-rose-600/30 hover:border-rose-500 bg-rose-600/10",
+    accent: "text-rose-400 border-rose-600/30 hover:border-rose-500",
     dot: "bg-rose-400"
   },
   {
@@ -104,7 +104,7 @@ export const CAROUSEL_GENRES = [
     name: "Mystery",
     tagline: "Whodunit",
     prompt: "Intriguing mysteries, suspenseful investigations, and clever detective puzzles",
-    accent: "text-violet-400 border-violet-500/30 hover:border-violet-400 bg-violet-500/10",
+    accent: "text-violet-400 border-violet-500/30 hover:border-violet-400",
     dot: "bg-violet-400"
   },
   {
@@ -112,7 +112,7 @@ export const CAROUSEL_GENRES = [
     name: "Drama",
     tagline: "Emotional",
     prompt: "Emotional and powerful drama movies",
-    accent: "text-blue-400 border-blue-500/30 hover:border-blue-400 bg-blue-500/10",
+    accent: "text-blue-400 border-blue-500/30 hover:border-blue-400",
     dot: "bg-blue-400"
   },
   {
@@ -120,7 +120,7 @@ export const CAROUSEL_GENRES = [
     name: "History",
     tagline: "Period Epic",
     prompt: "Magnificent historical epics and monumental biographical stories",
-    accent: "text-amber-300 border-amber-600/30 hover:border-amber-500 bg-amber-600/10",
+    accent: "text-amber-300 border-amber-600/30 hover:border-amber-500",
     dot: "bg-amber-300"
   }
 ];
@@ -263,7 +263,7 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
                 className={`snap-start shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
                   isSelected
                     ? "bg-amber-400 text-slate-950 font-bold border-amber-300 shadow-sm shadow-amber-400/20"
-                    : `bg-slate-900/80 text-white/80 ${genre.accent}`
+                    : `bg-slate-950/90 hover:bg-slate-900 text-white/90 ${genre.accent}`
                 }`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? 'bg-slate-950' : genre.dot}`} />
