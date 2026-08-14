@@ -129,6 +129,7 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
 
   const checkScrollability = () => {
     if (scrollRef.current) {
@@ -151,23 +152,51 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
     }
   }, []);
 
+  // Auto-scroll loop effect
+  useEffect(() => {
+    if (isPaused || isLoading) return;
+
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const maxScroll = scrollWidth - clientWidth;
+
+        // When reaching the end, smooth loop back to start
+        if (scrollLeft >= maxScroll - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          // Advance smoothly by ~130px (one pill width)
+          scrollRef.current.scrollBy({ left: 130, behavior: 'smooth' });
+        }
+      }
+    }, 2200);
+
+    return () => clearInterval(interval);
+  }, [isPaused, isLoading]);
+
   const handleScroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -260 : 260;
+      const scrollAmount = direction === 'left' ? -220 : 220;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="w-full relative mb-6">
+    <div 
+      className="w-full relative mb-5"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={() => setIsPaused(false)}
+    >
       {/* Sleek Minimal Header */}
-      <div className="flex items-center justify-between mb-2.5 px-1">
-        <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-amber-400" />
-          <span className="text-xs font-bold text-white/80 uppercase tracking-wider">
+      <div className="flex items-center justify-between mb-2 px-1">
+        <div className="flex items-center gap-1.5">
+          <Layers className="w-3 h-3 text-amber-400" />
+          <span className="text-[11px] font-bold text-white/80 uppercase tracking-wider">
             Genres
           </span>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-white/50">
+          <span className="text-[9px] font-semibold px-1.5 py-0.2 rounded-full bg-white/10 text-white/50">
             15
           </span>
         </div>
@@ -179,26 +208,26 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
             onClick={() => handleScroll('left')}
             disabled={!canScrollLeft || isLoading}
             aria-label="Scroll genres left"
-            className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
+            className={`p-1 rounded-md border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollLeft
                 ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
                 : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3 h-3" />
           </button>
           <button
             type="button"
             onClick={() => handleScroll('right')}
             disabled={!canScrollRight || isLoading}
             aria-label="Scroll genres right"
-            className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
+            className={`p-1 rounded-md border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollRight
                 ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
                 : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3 h-3" />
           </button>
         </div>
       </div>
@@ -207,18 +236,18 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
       <div className="relative">
         {/* Left Fade Gradient */}
         {canScrollLeft && (
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none rounded-l-xl" />
+          <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none rounded-l-lg" />
         )}
         
         {/* Right Fade Gradient */}
         {canScrollRight && (
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none rounded-r-xl" />
+          <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none rounded-r-lg" />
         )}
 
         {/* Scrollable Compact Pills/Cards */}
         <div
           ref={scrollRef}
-          className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1.5 px-0.5 scroll-smooth snap-x"
+          className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1 px-0.5 scroll-smooth snap-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {CAROUSEL_GENRES.map((genre) => {
@@ -227,19 +256,19 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
               <motion.button
                 key={genre.id}
                 type="button"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => onSelectGenre(genre)}
                 disabled={isLoading}
-                className={`snap-start shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl border backdrop-blur-md transition-all duration-150 cursor-pointer ${
+                className={`snap-start shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
                   isSelected
-                    ? "bg-amber-400 text-slate-950 font-bold border-amber-300 shadow-md shadow-amber-400/20 scale-105"
+                    ? "bg-amber-400 text-slate-950 font-bold border-amber-300 shadow-sm shadow-amber-400/20"
                     : `bg-slate-900/80 text-white/80 ${genre.accent}`
                 }`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? 'bg-slate-950' : genre.dot}`} />
-                <span className="text-xs font-semibold whitespace-nowrap">{genre.name}</span>
-                <span className={`text-[10px] whitespace-nowrap ${isSelected ? 'text-slate-800' : 'text-white/40'}`}>
+                <span className="text-[11px] font-semibold whitespace-nowrap">{genre.name}</span>
+                <span className={`text-[9px] whitespace-nowrap ${isSelected ? 'text-slate-800 font-medium' : 'text-white/40'}`}>
                   {genre.tagline}
                 </span>
               </motion.button>
