@@ -267,18 +267,26 @@ async def fetch_movie_provider(client: httpx.AsyncClient, movie: dict, region: s
         try:
             prov_resp = await asyncio.wait_for(
                 client.get(providers_url, params=prov_params, headers=headers),
-                timeout=2.0
+                timeout=2.5
             )
             if prov_resp.status_code == 200:
                 prov_data = prov_resp.json()
-                if "results" in prov_data and region in prov_data["results"]:
-                    region_data = prov_data["results"][region]
-                    if "flatrate" in region_data:
-                        providers = region_data["flatrate"]
-                    elif "rent" in region_data:
-                        providers = region_data["rent"]
-                    elif "buy" in region_data:
-                        providers = region_data["buy"]
+                results_dict = prov_data.get("results", {})
+                
+                # Check user region (e.g. IN), fallback to US / Global
+                region_data = results_dict.get(region) or results_dict.get("IN") or results_dict.get("US")
+                if not region_data and results_dict:
+                    region_data = next(iter(results_dict.values()))
+                    
+                if region_data:
+                    seen_provider_ids = set()
+                    # Aggregate across all OTT channels: Subscription (flatrate), Free, Ad-supported, Rent & Buy
+                    for channel in ["flatrate", "free", "ads", "rent", "buy"]:
+                        for p in region_data.get(channel, []):
+                            pid = p.get("provider_id")
+                            if pid and pid not in seen_provider_ids:
+                                seen_provider_ids.add(pid)
+                                providers.append(p)
                     watch_link = region_data.get("link", "")
             
             if len(PROVIDER_CACHE) < MAX_PROVIDER_CACHE:
@@ -500,29 +508,38 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
                             if len(results) >= MAX_RECOMMENDED_MOVIES:
                                 break
 
-    # Ensure final count cap is exactly 20
-    # Ensure final count cap is exactly 24
-    results = results[:MAX_RECOMMENDED_MOVIES]
+    # Take candidate pool (up to 36) to maximize streaming provider coverage
+    candidate_pool = results[:36] if len(results) >= MAX_RECOMMENDED_MOVIES else results
     
     mood_tone = mood_data.get("tone_summary", "This movie matches your desired mood perfectly!")
     
-    # Fetch streaming providers concurrently for all 24 movies
+    # Fetch streaming providers concurrently for candidate movies
     provider_tasks = [
         fetch_movie_provider(client, movie, region, headers, mood_tone)
-        for movie in results
+        for movie in candidate_pool
     ]
     
     try:
         movies_enriched = await asyncio.wait_for(
             asyncio.gather(*provider_tasks, return_exceptions=True),
-            timeout=3.0
+            timeout=3.5
         )
         valid_movies = []
         for i, m in enumerate(movies_enriched):
             if isinstance(m, dict) and "title" in m:
                 valid_movies.append(m)
-            elif i < len(results):
-                valid_movies.append(format_fallback_movie(results[i], mood_tone))
+            elif i < len(candidate_pool):
+                valid_movies.append(format_fallback_movie(candidate_pool[i], mood_tone))
+        
+        # Prioritize movies that are currently available on OTT streaming platforms
+        valid_movies.sort(
+            key=lambda m: (
+                len(m.get("providers", [])) > 0,
+                len(m.get("providers", [])),
+                float(m.get("rating") or 0)
+            ),
+            reverse=True
+        )
         
         # Absolute guarantee: if fewer than 24, backfill to exactly 24
         if len(valid_movies) < MAX_RECOMMENDED_MOVIES:
@@ -537,7 +554,7 @@ async def get_movie_recommendations(mood_data: dict, region: str = "IN", explici
         return valid_movies[:MAX_RECOMMENDED_MOVIES]
     except Exception:
         # Instant fallback to base formatted movies + static fallback to ensure 24 items
-        fallback_list = [format_fallback_movie(m, mood_tone) for m in results]
+        fallback_list = [format_fallback_movie(m, mood_tone) for m in candidate_pool]
         existing_ids = {m.get("id") for m in fallback_list}
         for fallback_mov in get_static_fallback_movies(target_lang, genre_ids):
             if fallback_mov["id"] not in existing_ids:
