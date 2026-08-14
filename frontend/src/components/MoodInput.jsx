@@ -177,10 +177,10 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             as="button"
             type="submit" 
             disabled={isLoading}
-            containerClassName="rounded-xl shrink-0 border-0"
-            className="rounded-xl px-6 py-3 bg-gradient-to-r from-amber-500 via-pink-600 to-indigo-600 hover:from-amber-400 hover:via-pink-500 hover:to-indigo-500 text-white font-bold whitespace-nowrap shadow-lg flex items-center gap-2"
+            containerClassName="rounded-xl shrink-0"
+            className="rounded-xl px-6 py-3 bg-slate-950 text-white font-bold whitespace-nowrap flex items-center gap-2 hover:text-amber-300 transition-colors"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-4 h-4 text-amber-400" />
             <span className="hidden sm:inline">Explore Films</span>
           </HoverBorderGradient>
         </div>

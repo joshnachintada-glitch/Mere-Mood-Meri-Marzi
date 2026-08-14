@@ -35,16 +35,16 @@ export function HoverBorderGradient({
   };
 
   const movingMap: Record<Direction, string> = {
-    TOP: "radial-gradient(20.7% 50% at 50% 0%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
-    LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
+    TOP: "radial-gradient(20.7% 50% at 50% 0%, #f59e0b 0%, rgba(245, 158, 11, 0) 100%)",
+    LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, #ec4899 0%, rgba(236, 72, 153, 0) 100%)",
     BOTTOM:
-      "radial-gradient(20.7% 50% at 50% 100%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
+      "radial-gradient(20.7% 50% at 50% 100%, #8b5cf6 0%, rgba(139, 92, 246, 0) 100%)",
     RIGHT:
-      "radial-gradient(16.2% 41.199999999999996% at 100% 50%, hsl(0, 0%, 100%) 0%, rgba(255, 255, 255, 0) 100%)",
+      "radial-gradient(16.2% 41.199999999999996% at 100% 50%, #f59e0b 0%, rgba(245, 158, 11, 0) 100%)",
   };
 
   const highlight =
-    "radial-gradient(75% 181.15942028985506% at 50% 50%, #f59e0b 0%, rgba(255, 255, 255, 0) 100%)";
+    "radial-gradient(75% 181.15942028985506% at 50% 50%, #f59e0b 0%, rgba(236, 72, 153, 0) 100%)";
 
   useEffect(() => {
     if (!hovered) {
@@ -57,30 +57,26 @@ export function HoverBorderGradient({
 
   return (
     <Tag
-      onMouseEnter={() => {
-        setHovered(true);
-      }}
+      onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex rounded-full border content-center bg-black/40 hover:bg-black/20 transition duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit cursor-pointer",
+        "relative flex rounded-xl border border-white/20 content-center bg-slate-950/80 hover:bg-slate-900/90 transition duration-300 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-[2px] decoration-clone w-fit cursor-pointer shadow-lg",
         containerClassName
       )}
       {...props}
     >
       <div
         className={cn(
-          "w-auto text-white z-10 bg-black/90 px-4 py-2 rounded-[inherit]",
+          "w-auto text-white z-10 bg-slate-950 px-6 py-3 rounded-[inherit] flex items-center gap-2 font-bold",
           className
         )}
       >
         {children}
       </div>
       <motion.div
-        className={cn(
-          "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
-        )}
+        className="flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
         style={{
-          filter: "blur(2px)",
+          filter: "blur(3px)",
           position: "absolute",
           width: "100%",
           height: "100%",
@@ -93,7 +89,7 @@ export function HoverBorderGradient({
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
-      <div className="bg-black/80 absolute z-1 flex-none inset-[2px] rounded-[100px]" />
+      <div className="bg-slate-950 absolute z-1 flex-none inset-[1.5px] rounded-[inherit]" />
     </Tag>
   );
 }
