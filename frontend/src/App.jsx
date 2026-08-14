@@ -93,38 +93,6 @@ function App() {
         
         {/* Results / Feedback Section with auto-scroll anchor */}
         <div ref={resultsRef} className="mt-8 scroll-mt-24">
-          {isLoading && (
-            <div className="mb-10 animate-fade-in max-w-4xl mx-auto">
-              <div className="bg-slate-950/70 border border-amber-400/30 rounded-2xl p-6 backdrop-blur-xl shadow-2xl text-center mb-8">
-                <div className="flex items-center justify-center gap-3 mb-3">
-                  <Sparkles className="w-5 h-5 text-amber-400 animate-spin" />
-                  <h4 className="text-xl font-bold text-white tracking-wide">
-                    Finding 24 Recommendations for Your Mood...
-                  </h4>
-                  <Sparkles className="w-5 h-5 text-pink-400 animate-pulse" />
-                </div>
-                <p className="text-sm text-white/70 mb-4">
-                  Scanning cinema catalogs across languages and verifying OTT streaming availability...
-                </p>
-                {/* Animated progress bar */}
-                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden max-w-md mx-auto relative">
-                  <div className="h-full bg-gradient-to-r from-amber-400 via-pink-500 to-indigo-500 rounded-full animate-[progress_5s_ease-out_forwards]"></div>
-                </div>
-              </div>
-
-              {/* Skeleton Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                  <div key={i} className="glass-panel rounded-2xl overflow-hidden border border-white/10 p-4 animate-pulse flex flex-col gap-3">
-                    <div className="aspect-[2/3] bg-white/5 rounded-xl w-full"></div>
-                    <div className="h-5 bg-white/10 rounded w-3/4"></div>
-                    <div className="h-4 bg-white/5 rounded w-1/2"></div>
-                    <div className="h-3 bg-white/5 rounded w-full"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {error && !isLoading && (
             <div className="bg-red-500/20 border border-red-500 text-white px-6 py-4 rounded-xl max-w-2xl mx-auto mb-10 backdrop-blur-md">
