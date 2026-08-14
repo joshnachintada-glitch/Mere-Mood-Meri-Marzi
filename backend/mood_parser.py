@@ -300,9 +300,45 @@ FAST_MOOD_MAP: Dict[str, dict] = {
     },
     "music": {
         "primary_genre_ids": [10402, 18, 35],
-        "keywords": ["music", "musical", "soundtrack", "concert", "songs"],
+        "keywords": ["music", "dance", "songs", "rhythm", "melody"],
         "tone_summary": "Soulful musical journeys, melodious rhythms, and artistic inspiration.",
         "original_language": "all"
+    },
+    "k-drama": {
+        "primary_genre_ids": [18, 10749, 53, 35],
+        "keywords": ["k-drama", "korean", "romance", "thriller", "drama"],
+        "tone_summary": "Heart-fluttering romances, gripping thrillers, and iconic Korean cinema & dramas.",
+        "original_language": "ko"
+    },
+    "kdrama": {
+        "primary_genre_ids": [18, 10749, 53, 35],
+        "keywords": ["kdrama", "korean", "romance", "thriller", "drama"],
+        "tone_summary": "Heart-fluttering romances, gripping thrillers, and iconic Korean cinema & dramas.",
+        "original_language": "ko"
+    },
+    "k-dramas": {
+        "primary_genre_ids": [18, 10749, 53, 35],
+        "keywords": ["k-dramas", "korean", "romance", "thriller", "drama"],
+        "tone_summary": "Heart-fluttering romances, gripping thrillers, and iconic Korean cinema & dramas.",
+        "original_language": "ko"
+    },
+    "korean": {
+        "primary_genre_ids": [18, 53, 10749, 28],
+        "keywords": ["korean", "hallyu", "cinema", "masterpiece"],
+        "tone_summary": "Spectacular Korean masterworks spanning thrilling suspense, action, and heartfelt romance.",
+        "original_language": "ko"
+    },
+    "korean movies": {
+        "primary_genre_ids": [18, 53, 10749, 28],
+        "keywords": ["korean", "movies", "cinema", "masterpiece"],
+        "tone_summary": "Spectacular Korean masterworks spanning thrilling suspense, action, and heartfelt romance.",
+        "original_language": "ko"
+    },
+    "top korean movies and k-drama romantic thrillers": {
+        "primary_genre_ids": [18, 10749, 53, 35],
+        "keywords": ["korean", "k-drama", "romance", "thriller", "masterpieces"],
+        "tone_summary": "Heart-fluttering romances, gripping thrillers, and iconic Korean cinema & dramas.",
+        "original_language": "ko"
     }
 }
 

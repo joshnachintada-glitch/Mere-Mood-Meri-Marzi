@@ -26,7 +26,7 @@ LANGUAGE_MAP = {
     "ur": "Urdu",
     "as": "Assamese",
     "ja": "Japanese / Anime",
-    "ko": "Korean",
+    "ko": "Korean / K-Drama",
 }
 
 GENRE_MAP = {
@@ -53,14 +53,15 @@ GENRE_MAP = {
 
 # Major language clusters for Pan-India & Global multi-language discovery (Total target: 24+)
 MULTI_LANGUAGE_CLUSTERS = [
-    {"lang": "hi", "name": "Hindi", "weight": 4},
-    {"lang": "te", "name": "Telugu", "weight": 4},
-    {"lang": "ta", "name": "Tamil", "weight": 4},
-    {"lang": "ml", "name": "Malayalam", "weight": 4},
-    {"lang": "kn", "name": "Kannada", "weight": 3},
-    {"lang": "mr|bn|pa|gu|or|as|ur", "name": "Regional Cinema", "weight": 3},
+    {"lang": "hi", "name": "Hindi", "weight": 3},
+    {"lang": "te", "name": "Telugu", "weight": 3},
+    {"lang": "ta", "name": "Tamil", "weight": 3},
+    {"lang": "ml", "name": "Malayalam", "weight": 3},
+    {"lang": "kn", "name": "Kannada", "weight": 2},
+    {"lang": "mr|bn|pa|gu|or|as|ur", "name": "Regional Cinema", "weight": 2},
     {"lang": "ja", "name": "Anime", "weight": 3},
-    {"lang": "en", "name": "English", "weight": 3},
+    {"lang": "ko", "name": "Korean & K-Drama", "weight": 3},
+    {"lang": "en", "name": "English", "weight": 2},
 ]
 
 ALL_MAJOR_GENRES = [28, 35, 18, 27, 878, 10749, 53, 16, 80, 14, 9648, 12, 10751, 36, 10752]
@@ -174,8 +175,12 @@ STATIC_FALLBACK_MOVIES: List[dict] = [
     {"id": 569094, "title": "Spider-Man: Across the Spider-Verse", "original_title": "Spider-Man: Across the Spider-Verse", "release_year": "2023", "rating": 8.4, "poster_path": "/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg", "overview": "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence.", "language_code": "en", "language_name": "English", "genres": ["Animation", "Action", "Adventure"], "providers": [{"provider_id": 8, "provider_name": "Netflix", "logo_path": "/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"}], "watch_link": "https://www.netflix.com", "ai_reason": "Revolutionary visual animation and multiverse adventure."},
     {"id": 49026, "title": "The Dark Knight Rises", "original_title": "The Dark Knight Rises", "release_year": "2012", "rating": 7.8, "poster_path": "/hrJ0cqR2t6bZ75rR2t4w3qT4yYp.jpg", "overview": "Batman returns to save Gotham from the ruthless terrorist Bane.", "language_code": "en", "language_name": "English", "genres": ["Action", "Crime", "Drama"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Grand superhero climax with towering stakes and heroic scale."},
 
-    # --- KOREAN ---
-    {"id": 496243, "title": "Parasite", "original_title": "기생충", "release_year": "2019", "rating": 8.5, "poster_path": "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg", "overview": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood.", "language_code": "ko", "language_name": "Korean", "genres": ["Comedy", "Thriller", "Drama"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Brilliant dark comedy thriller with unforgettable twists."}
+    # --- KOREAN & K-DRAMAS ---
+    {"id": 496243, "title": "Parasite", "original_title": "기생충", "release_year": "2019", "rating": 8.5, "poster_path": "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg", "overview": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood.", "language_code": "ko", "language_name": "Korean / K-Drama", "genres": ["Comedy", "Thriller", "Drama"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Historic Oscar Best Picture winner, brilliant dark comedy thriller."},
+    {"id": 396535, "title": "Train to Busan", "original_title": "부산행", "release_year": "2016", "rating": 7.8, "poster_path": "/vNVFt6dtcqnScNZZv51nL33aWk0.jpg", "overview": "A zombie virus breaks out in South Korea, and passengers struggle to survive on the bullet train from Seoul to Busan.", "language_code": "ko", "language_name": "Korean / K-Drama", "genres": ["Action", "Horror", "Thriller"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Pulse-pounding emotional zombie survival thriller."},
+    {"id": 666277, "title": "Past Lives", "original_title": "Past Lives", "release_year": "2023", "rating": 7.9, "poster_path": "/k3waqVXSnvCZWfJYNtdamTgTtTA.jpg", "overview": "Nora and Hae Sung, two deeply connected childhood friends, are wrested apart after Nora's family emigrates from South Korea.", "language_code": "ko", "language_name": "Korean / K-Drama", "genres": ["Romance", "Drama"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Soulful, poignant modern romance capturing inyeon and destiny."},
+    {"id": 290098, "title": "The Handmaiden", "original_title": "아가씨", "release_year": "2016", "rating": 8.3, "poster_path": "/8MnFfT9LqM7k7Y1q9m7k7Y1q9m7.jpg", "overview": "A woman is hired as a handmaiden to a Japanese heiress, but secretly she is involved in a plot to defraud her.", "language_code": "ko", "language_name": "Korean / K-Drama", "genres": ["Thriller", "Drama", "Romance"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Visually stunning erotic psychological thriller with jaw-dropping twists."},
+    {"id": 705996, "title": "Decision to Leave", "original_title": "헤어질 결심", "release_year": "2022", "rating": 7.3, "poster_path": "/6n741c9fV67Y1q9m7k7Y1q9m7k.jpg", "overview": "A polite detective investigates a man's death in the mountains, but finds himself falling for the dead man's mysterious wife.", "language_code": "ko", "language_name": "Korean / K-Drama", "genres": ["Mystery", "Romance", "Crime"], "providers": [{"provider_id": 119, "provider_name": "Amazon Prime Video", "logo_path": "/emthp39XA2YMNehvisUb0qRpAcG.jpg"}], "watch_link": "https://www.primevideo.com", "ai_reason": "Cannes Best Director winner, a masterclass romantic mystery."}
 ]
 
 def get_static_fallback_movies(preferred_lang: Optional[str] = None, preferred_genres: Optional[List[int]] = None) -> List[dict]:

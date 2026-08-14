@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LiquidButton } from '@/components/ui/liquid-glass-button';
 
 export const LANGUAGES = [
-  { code: "all", name: "All Indian Films", label: "🌟 All Languages", region: "Pan-India" },
+  { code: "all", name: "All Indian & Global Films", label: "🌟 All Languages", region: "Pan-India & Global" },
   { code: "hi", name: "Hindi", label: "🎬 Hindi", region: "Bollywood" },
   { code: "te", name: "Telugu", label: "🎬 Telugu", region: "Tollywood" },
   { code: "ta", name: "Tamil", label: "🎬 Tamil", region: "Kollywood" },
@@ -17,8 +17,9 @@ export const LANGUAGES = [
   { code: "gu", name: "Gujarati", label: "🎬 Gujarati", region: "Dhollywood" },
   { code: "as", name: "Assamese", label: "🎬 Assamese", region: "Jollywood" },
   { code: "ur", name: "Urdu", label: "🎬 Urdu", region: "Indian Urdu Cinema" },
+  { code: "ko", name: "Korean / K-Dramas", label: "🇰🇷 K-Dramas & Korean", region: "K-Dramas & Korean Cinema" },
   { code: "ja", name: "Japanese / Anime", label: "🎌 Anime (Japanese)", region: "Anime & Japanese Cinema" },
-  { code: "en", name: "English", label: "🌐 English", region: "Global / Indian English" },
+  { code: "en", name: "English", label: "🌐 English", region: "Global / Hollywood" },
 ];
 
 export const GENRE_PRESETS = [
@@ -30,6 +31,7 @@ export const GENRE_PRESETS = [
   { label: "✨ Fantasy", prompt: "Magical fantasy and mythical adventure movies" },
   { label: "🔍 Thriller", prompt: "Gripping thriller, suspense and mystery movies" },
   { label: "❤️ Romance", prompt: "Heartwarming romantic love story movies" },
+  { label: "🫰 K-Drama", prompt: "Top Korean movies and K-drama romantic thrillers" },
   { label: "🎌 Anime", prompt: "Masterpiece anime movies with stunning animation and storytelling" },
   { label: "🗺️ Adventure", prompt: "Epic adventure, exploration, and journey movies" },
   { label: "🕵️ Crime", prompt: "Intense crime, underworld, and mafia sagas" },
