@@ -37,6 +37,9 @@ function App() {
       } else {
         setMovies(response.data.movies || []);
         setMoodAnalysis(response.data.mood_analysis || null);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
       }
     } catch (err) {
       console.error(err);

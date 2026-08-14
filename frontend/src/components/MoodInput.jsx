@@ -149,25 +149,22 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
       <div className="mb-6">
         <div className="flex flex-wrap justify-center gap-2 max-w-lg mx-auto">
           {GENRE_PRESETS.map((preset, idx) => (
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
+            <button
               key={idx}
               type="button"
               onClick={() => handlePresetClick(preset.prompt)}
-              className="px-3 py-1 rounded-full bg-slate-900/70 hover:bg-slate-800/90 text-blue-100/90 border border-blue-400/20 hover:border-amber-400/50 hover:text-white transition-all text-xs font-medium shadow-sm backdrop-blur-md whitespace-nowrap"
+              className="px-3 py-1 rounded-full bg-slate-900/70 hover:bg-slate-800 text-blue-100/90 border border-blue-400/20 hover:border-amber-400/50 hover:text-white transition-colors text-xs font-medium shadow-sm backdrop-blur-md whitespace-nowrap cursor-pointer"
               disabled={isLoading}
             >
               {preset.label}
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
 
       {/* Search Input Bar */}
-      <form onSubmit={handleSubmit} className="relative group max-w-2xl mx-auto">
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-amber-500 to-indigo-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
-        <div className="relative flex items-center bg-slate-950/80 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden shadow-2xl p-1.5">
+      <form onSubmit={handleSubmit} className="relative max-w-2xl mx-auto">
+        <div className="relative flex items-center bg-slate-950/90 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden shadow-2xl p-1.5">
           <input
             type="text"
             value={customMood}
@@ -176,17 +173,14 @@ export default function MoodInput({ onSearch, isLoading, selectedLanguage, setSe
             className="w-full bg-transparent px-4 py-3 outline-none text-base md:text-lg text-white placeholder:text-white/40"
             disabled={isLoading}
           />
-          <LiquidButton 
+          <button 
             type="submit" 
             disabled={isLoading}
-            size="default"
-            className="rounded-xl px-5 text-white font-bold whitespace-nowrap"
+            className="rounded-xl px-6 py-3 bg-gradient-to-r from-amber-500 to-pink-600 hover:from-amber-400 hover:to-pink-500 text-white font-bold whitespace-nowrap shadow-lg transition-colors flex items-center gap-2 cursor-pointer shrink-0"
           >
-            <div className="flex items-center gap-2">
-              <Search className="w-4 h-4" />
-              <span className="hidden sm:inline">Explore Films</span>
-            </div>
-          </LiquidButton>
+            <Search className="w-4 h-4" />
+            <span className="hidden sm:inline">Explore Films</span>
+          </button>
         </div>
       </form>
     </div>
