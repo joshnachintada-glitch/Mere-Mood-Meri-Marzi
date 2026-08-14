@@ -21,22 +21,22 @@ import {
 } from 'lucide-react';
 
 const GENRE_DISPLAY_CONFIG = {
-  "Action": { icon: "🔥", label: "Action & High Octane", color: "from-amber-500/20 to-red-500/10 text-amber-300 border-amber-500/30" },
-  "Adventure": { icon: "🗺️", label: "Adventure & Journeys", color: "from-emerald-500/20 to-teal-500/10 text-emerald-300 border-emerald-500/30" },
-  "Comedy": { icon: "😂", label: "Comedy & Laughs", color: "from-yellow-500/20 to-amber-500/10 text-yellow-300 border-yellow-500/30" },
-  "Drama": { icon: "🎭", label: "Drama & Emotional Stories", color: "from-blue-500/20 to-indigo-500/10 text-blue-300 border-blue-500/30" },
-  "Thriller": { icon: "🔍", label: "Thriller & Suspense", color: "from-purple-500/20 to-pink-500/10 text-purple-300 border-purple-500/30" },
-  "Mystery": { icon: "🧩", label: "Mystery & Investigation", color: "from-violet-500/20 to-fuchsia-500/10 text-violet-300 border-violet-500/30" },
-  "Romance": { icon: "❤️", label: "Romance & Love", color: "from-pink-500/20 to-rose-500/10 text-pink-300 border-pink-500/30" },
-  "Sci-Fi": { icon: "🚀", label: "Sci-Fi & Future", color: "from-cyan-500/20 to-blue-500/10 text-cyan-300 border-cyan-500/30" },
-  "Fantasy": { icon: "✨", label: "Fantasy & Magic", color: "from-amber-400/20 to-orange-500/10 text-amber-300 border-amber-400/30" },
-  "Horror": { icon: "👻", label: "Horror & Spooky", color: "from-rose-600/20 to-slate-900/40 text-rose-300 border-rose-500/30" },
-  "Crime": { icon: "🕵️", label: "Crime & Underworld", color: "from-zinc-500/20 to-slate-800/40 text-zinc-300 border-zinc-500/30" },
-  "Animation": { icon: "🎌", label: "Anime & Animation", color: "from-indigo-500/20 to-pink-500/10 text-indigo-300 border-indigo-500/30" },
-  "Family": { icon: "👨‍👩‍👧", label: "Family & Wholesome", color: "from-teal-500/20 to-emerald-500/10 text-teal-300 border-teal-500/30" },
-  "History": { icon: "📜", label: "History & Biopic", color: "from-amber-600/20 to-yellow-600/10 text-amber-200 border-amber-600/30" },
-  "Music": { icon: "🎵", label: "Music & Musical", color: "from-fuchsia-500/20 to-purple-500/10 text-fuchsia-300 border-fuchsia-500/30" },
-  "War": { icon: "⚔️", label: "War & Epic Combat", color: "from-red-600/20 to-orange-600/10 text-red-300 border-red-500/30" },
+  "Action": { label: "Action & High Octane", color: "from-amber-500/20 to-red-500/10 text-amber-300 border-amber-500/30" },
+  "Adventure": { label: "Adventure & Journeys", color: "from-emerald-500/20 to-teal-500/10 text-emerald-300 border-emerald-500/30" },
+  "Comedy": { label: "Comedy & Laughs", color: "from-yellow-500/20 to-amber-500/10 text-yellow-300 border-yellow-500/30" },
+  "Drama": { label: "Drama & Emotional Stories", color: "from-blue-500/20 to-indigo-500/10 text-blue-300 border-blue-500/30" },
+  "Thriller": { label: "Thriller & Suspense", color: "from-purple-500/20 to-pink-500/10 text-purple-300 border-purple-500/30" },
+  "Mystery": { label: "Mystery & Investigation", color: "from-violet-500/20 to-fuchsia-500/10 text-violet-300 border-violet-500/30" },
+  "Romance": { label: "Romance & Love", color: "from-pink-500/20 to-rose-500/10 text-pink-300 border-pink-500/30" },
+  "Sci-Fi": { label: "Sci-Fi & Future", color: "from-cyan-500/20 to-blue-500/10 text-cyan-300 border-cyan-500/30" },
+  "Fantasy": { label: "Fantasy & Magic", color: "from-amber-400/20 to-orange-500/10 text-amber-300 border-amber-400/30" },
+  "Horror": { label: "Horror & Spooky", color: "from-rose-600/20 to-slate-900/40 text-rose-300 border-rose-500/30" },
+  "Crime": { label: "Crime & Underworld", color: "from-zinc-500/20 to-slate-800/40 text-zinc-300 border-zinc-500/30" },
+  "Animation": { label: "Anime & Animation", color: "from-indigo-500/20 to-pink-500/10 text-indigo-300 border-indigo-500/30" },
+  "Family": { label: "Family & Wholesome", color: "from-teal-500/20 to-emerald-500/10 text-teal-300 border-teal-500/30" },
+  "History": { label: "History & Biopic", color: "from-amber-600/20 to-yellow-600/10 text-amber-200 border-amber-600/30" },
+  "Music": { label: "Music & Musical", color: "from-fuchsia-500/20 to-purple-500/10 text-fuchsia-300 border-fuchsia-500/30" },
+  "War": { label: "War & Epic Combat", color: "from-red-600/20 to-orange-600/10 text-red-300 border-red-500/30" },
 };
 
 function App() {
@@ -339,12 +339,12 @@ function App() {
                         onChange={(e) => setSortBy(e.target.value)}
                         className="bg-transparent text-xs font-bold text-amber-300 outline-none cursor-pointer pr-2"
                       >
-                        <option value="relevance" className="bg-slate-950 text-white">🌟 AI Curated Match</option>
-                        <option value="rating" className="bg-slate-950 text-white">⭐ Highest Rating</option>
-                        <option value="year_desc" className="bg-slate-950 text-white">📅 Newest Releases</option>
-                        <option value="year_asc" className="bg-slate-950 text-white">⏳ Classic / Vintage First</option>
-                        <option value="ott_first" className="bg-slate-950 text-white">🍿 Streaming Available First</option>
-                        <option value="title" className="bg-slate-950 text-white">🔤 Title (A → Z)</option>
+                        <option value="relevance" className="bg-slate-950 text-white">AI Curated Match</option>
+                        <option value="rating" className="bg-slate-950 text-white">Highest Rating</option>
+                        <option value="year_desc" className="bg-slate-950 text-white">Newest Releases</option>
+                        <option value="year_asc" className="bg-slate-950 text-white">Classic First</option>
+                        <option value="ott_first" className="bg-slate-950 text-white">Streaming Available First</option>
+                        <option value="title" className="bg-slate-950 text-white">Title (A → Z)</option>
                       </select>
                     </div>
 
@@ -478,9 +478,11 @@ function App() {
                       {/* Section Header */}
                       <div className="flex items-center justify-between bg-slate-950/50 px-5 py-3 rounded-2xl border border-white/10 backdrop-blur-md">
                         <div className="flex items-center gap-3">
-                          <span className="text-2xl">{group.config.icon}</span>
+                          <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                            <Film className="w-5 h-5" />
+                          </div>
                           <div>
-                            <h4 className="text-xl font-black text-white">{group.config.label}</h4>
+                            <h4 className="text-lg sm:text-xl font-black text-white">{group.config.label}</h4>
                             <p className="text-xs text-white/60">Curated recommendations matching this genre</p>
                           </div>
                         </div>

@@ -1,172 +1,127 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const CAROUSEL_GENRES = [
   {
     id: "action",
     name: "Action",
-    icon: "🔥",
-    tagline: "High Octane & Combat",
+    tagline: "High Octane",
     prompt: "Action movies with intense thrill and high energy",
-    gradient: "from-amber-500/20 via-orange-600/15 to-red-600/10",
-    border: "border-amber-500/30 hover:border-amber-400",
-    activeBorder: "border-amber-400 ring-2 ring-amber-400/40",
-    accentColor: "text-amber-400"
+    accent: "text-amber-400 border-amber-500/30 hover:border-amber-400 bg-amber-500/10",
+    dot: "bg-amber-400"
   },
   {
     id: "thriller",
     name: "Thriller",
-    icon: "🔍",
-    tagline: "Edge of Seat Suspense",
+    tagline: "Suspense",
     prompt: "Gripping thriller, suspense and mystery movies",
-    gradient: "from-purple-500/20 via-violet-600/15 to-pink-600/10",
-    border: "border-purple-500/30 hover:border-purple-400",
-    activeBorder: "border-purple-400 ring-2 ring-purple-400/40",
-    accentColor: "text-purple-400"
+    accent: "text-purple-400 border-purple-500/30 hover:border-purple-400 bg-purple-500/10",
+    dot: "bg-purple-400"
   },
   {
     id: "crime",
     name: "Crime",
-    icon: "🕵️",
-    tagline: "Mafia & Underworld",
+    tagline: "Underworld",
     prompt: "Intense crime, underworld, and mafia sagas",
-    gradient: "from-zinc-500/20 via-slate-700/15 to-red-900/10",
-    border: "border-zinc-500/30 hover:border-zinc-300",
-    activeBorder: "border-zinc-300 ring-2 ring-zinc-300/40",
-    accentColor: "text-zinc-300"
+    accent: "text-zinc-300 border-zinc-500/30 hover:border-zinc-300 bg-zinc-500/10",
+    dot: "bg-zinc-300"
   },
   {
     id: "adventure",
     name: "Adventure",
-    icon: "🗺️",
-    tagline: "Epic Quests & Journeys",
+    tagline: "Expedition",
     prompt: "Epic adventure, exploration, and journey movies",
-    gradient: "from-emerald-500/20 via-teal-600/15 to-cyan-600/10",
-    border: "border-emerald-500/30 hover:border-emerald-400",
-    activeBorder: "border-emerald-400 ring-2 ring-emerald-400/40",
-    accentColor: "text-emerald-400"
+    accent: "text-emerald-400 border-emerald-500/30 hover:border-emerald-400 bg-emerald-500/10",
+    dot: "bg-emerald-400"
   },
   {
     id: "war",
     name: "War",
-    icon: "⚔️",
-    tagline: "Battlefield & Heroism",
+    tagline: "Battlefield",
     prompt: "Gripping war dramas, heroic bravery, and epic combat sagas",
-    gradient: "from-red-600/20 via-orange-700/15 to-amber-900/10",
-    border: "border-red-500/30 hover:border-red-400",
-    activeBorder: "border-red-400 ring-2 ring-red-400/40",
-    accentColor: "text-red-400"
+    accent: "text-red-400 border-red-500/30 hover:border-red-400 bg-red-500/10",
+    dot: "bg-red-400"
   },
   {
     id: "comedy",
     name: "Comedy",
-    icon: "😂",
-    tagline: "Laughs & Feel-Good Fun",
+    tagline: "Feel-Good",
     prompt: "Hilarious comedy movies with feel-good laughter",
-    gradient: "from-yellow-500/20 via-amber-500/15 to-orange-500/10",
-    border: "border-yellow-500/30 hover:border-yellow-400",
-    activeBorder: "border-yellow-400 ring-2 ring-yellow-400/40",
-    accentColor: "text-yellow-400"
+    accent: "text-yellow-400 border-yellow-500/30 hover:border-yellow-400 bg-yellow-500/10",
+    dot: "bg-yellow-400"
   },
   {
     id: "romance",
     name: "Romance",
-    icon: "❤️",
-    tagline: "Love & Heartwarming",
+    tagline: "Love Story",
     prompt: "Heartwarming romantic love story movies",
-    gradient: "from-pink-500/20 via-rose-600/15 to-red-500/10",
-    border: "border-pink-500/30 hover:border-pink-400",
-    activeBorder: "border-pink-400 ring-2 ring-pink-400/40",
-    accentColor: "text-pink-400"
+    accent: "text-pink-400 border-pink-500/30 hover:border-pink-400 bg-pink-500/10",
+    dot: "bg-pink-400"
   },
   {
     id: "family",
     name: "Family",
-    icon: "👨‍👩‍👧",
-    tagline: "Wholesome & Magical",
+    tagline: "Wholesome",
     prompt: "Wholesome, magical family movies for all ages",
-    gradient: "from-teal-500/20 via-emerald-600/15 to-sky-600/10",
-    border: "border-teal-500/30 hover:border-teal-400",
-    activeBorder: "border-teal-400 ring-2 ring-teal-400/40",
-    accentColor: "text-teal-400"
+    accent: "text-teal-400 border-teal-500/30 hover:border-teal-400 bg-teal-500/10",
+    dot: "bg-teal-400"
   },
   {
     id: "musical",
     name: "Musical",
-    icon: "🎵",
-    tagline: "Rhythm, Songs & Dance",
+    tagline: "Soundtrack",
     prompt: "Melodious musical spectacles, rhythmic songs, and dance",
-    gradient: "from-fuchsia-500/20 via-purple-600/15 to-indigo-600/10",
-    border: "border-fuchsia-500/30 hover:border-fuchsia-400",
-    activeBorder: "border-fuchsia-400 ring-2 ring-fuchsia-400/40",
-    accentColor: "text-fuchsia-400"
+    accent: "text-fuchsia-400 border-fuchsia-500/30 hover:border-fuchsia-400 bg-fuchsia-500/10",
+    dot: "bg-fuchsia-400"
   },
   {
     id: "scifi",
     name: "Sci-Fi",
-    icon: "🚀",
-    tagline: "Future & Spacetime",
+    tagline: "Futuristic",
     prompt: "Futuristic science fiction and mind-bending Sci-Fi movies",
-    gradient: "from-cyan-500/20 via-sky-600/15 to-blue-600/10",
-    border: "border-cyan-500/30 hover:border-cyan-400",
-    activeBorder: "border-cyan-400 ring-2 ring-cyan-400/40",
-    accentColor: "text-cyan-400"
+    accent: "text-cyan-400 border-cyan-500/30 hover:border-cyan-400 bg-cyan-500/10",
+    dot: "bg-cyan-400"
   },
   {
     id: "fantasy",
     name: "Fantasy",
-    icon: "✨",
-    tagline: "Magic, Myths & Realms",
+    tagline: "Mythical",
     prompt: "Magical fantasy and mythical adventure movies",
-    gradient: "from-amber-400/20 via-yellow-600/15 to-purple-600/10",
-    border: "border-amber-400/30 hover:border-amber-300",
-    activeBorder: "border-amber-300 ring-2 ring-amber-300/40",
-    accentColor: "text-amber-300"
+    accent: "text-amber-300 border-amber-400/30 hover:border-amber-300 bg-amber-400/10",
+    dot: "bg-amber-300"
   },
   {
     id: "horror",
     name: "Horror",
-    icon: "👻",
-    tagline: "Chills, Spooks & Fear",
+    tagline: "Chills",
     prompt: "Chilling and scary horror movies",
-    gradient: "from-rose-600/20 via-red-800/15 to-slate-950/40",
-    border: "border-rose-600/30 hover:border-rose-500",
-    activeBorder: "border-rose-500 ring-2 ring-rose-500/40",
-    accentColor: "text-rose-400"
+    accent: "text-rose-400 border-rose-600/30 hover:border-rose-500 bg-rose-600/10",
+    dot: "bg-rose-400"
   },
   {
     id: "mystery",
     name: "Mystery",
-    icon: "🧩",
-    tagline: "Whodunit & Puzzles",
+    tagline: "Whodunit",
     prompt: "Intriguing mysteries, suspenseful investigations, and clever detective puzzles",
-    gradient: "from-violet-500/20 via-indigo-600/15 to-slate-800/20",
-    border: "border-violet-500/30 hover:border-violet-400",
-    activeBorder: "border-violet-400 ring-2 ring-violet-400/40",
-    accentColor: "text-violet-400"
+    accent: "text-violet-400 border-violet-500/30 hover:border-violet-400 bg-violet-500/10",
+    dot: "bg-violet-400"
   },
   {
     id: "drama",
     name: "Drama",
-    icon: "🎭",
-    tagline: "Human Stories & Depth",
+    tagline: "Emotional",
     prompt: "Emotional and powerful drama movies",
-    gradient: "from-blue-500/20 via-indigo-600/15 to-slate-800/20",
-    border: "border-blue-500/30 hover:border-blue-400",
-    activeBorder: "border-blue-400 ring-2 ring-blue-400/40",
-    accentColor: "text-blue-400"
+    accent: "text-blue-400 border-blue-500/30 hover:border-blue-400 bg-blue-500/10",
+    dot: "bg-blue-400"
   },
   {
     id: "history",
     name: "History",
-    icon: "📜",
-    tagline: "Biopics & Period Epics",
+    tagline: "Period Epic",
     prompt: "Magnificent historical epics and monumental biographical stories",
-    gradient: "from-amber-600/20 via-yellow-700/15 to-stone-800/20",
-    border: "border-amber-600/30 hover:border-amber-500",
-    activeBorder: "border-amber-500 ring-2 ring-amber-500/40",
-    accentColor: "text-amber-300"
+    accent: "text-amber-300 border-amber-600/30 hover:border-amber-500 bg-amber-600/10",
+    dot: "bg-amber-300"
   }
 ];
 
@@ -198,76 +153,72 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
 
   const handleScroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -320 : 320;
+      const scrollAmount = direction === 'left' ? -260 : 260;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="w-full relative mb-8">
-      {/* Header with Title & Navigation Controls */}
-      <div className="flex items-center justify-between mb-3 px-1">
+    <div className="w-full relative mb-6">
+      {/* Sleek Minimal Header */}
+      <div className="flex items-center justify-between mb-2.5 px-1">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
-              Browse by Genre Carousel
-              <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-white/10 text-white/60">
-                15 Curated Genres
-              </span>
-            </h3>
-          </div>
+          <Layers className="w-3.5 h-3.5 text-amber-400" />
+          <span className="text-xs font-bold text-white/80 uppercase tracking-wider">
+            Genres
+          </span>
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-white/50">
+            15
+          </span>
         </div>
 
-        {/* Carousel Navigation Buttons */}
-        <div className="flex items-center gap-1.5">
+        {/* Carousel Arrow Controls */}
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={() => handleScroll('left')}
             disabled={!canScrollLeft || isLoading}
-            aria-label="Scroll left"
-            className={`p-2 rounded-xl border backdrop-blur-md transition-all duration-200 cursor-pointer ${
+            aria-label="Scroll genres left"
+            className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollLeft
-                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50 shadow-md shadow-slate-950/40"
+                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
                 : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5" />
           </button>
           <button
             type="button"
             onClick={() => handleScroll('right')}
             disabled={!canScrollRight || isLoading}
-            aria-label="Scroll right"
-            className={`p-2 rounded-xl border backdrop-blur-md transition-all duration-200 cursor-pointer ${
+            aria-label="Scroll genres right"
+            className={`p-1.5 rounded-lg border backdrop-blur-md transition-all duration-150 cursor-pointer ${
               canScrollRight
-                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50 shadow-md shadow-slate-950/40"
+                ? "bg-slate-900/90 hover:bg-slate-800 text-white border-white/20 hover:border-amber-400/50"
                 : "bg-slate-950/40 text-white/20 border-white/5 cursor-not-allowed"
             }`}
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {/* Carousel Track Container */}
-      <div className="relative group">
+      <div className="relative">
         {/* Left Fade Gradient */}
         {canScrollLeft && (
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none rounded-l-2xl" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none rounded-l-xl" />
         )}
         
         {/* Right Fade Gradient */}
         {canScrollRight && (
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none rounded-r-2xl" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none rounded-r-xl" />
         )}
 
-        {/* Scrollable Cards Track */}
+        {/* Scrollable Compact Pills/Cards */}
         <div
           ref={scrollRef}
-          className="flex items-center gap-3 overflow-x-auto scrollbar-none py-2 px-1 scroll-smooth snap-x snap-mandatory"
+          className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1.5 px-0.5 scroll-smooth snap-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {CAROUSEL_GENRES.map((genre) => {
@@ -276,42 +227,21 @@ export default function GenreCarousel({ onSelectGenre, selectedGenreId, isLoadin
               <motion.button
                 key={genre.id}
                 type="button"
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => onSelectGenre(genre)}
                 disabled={isLoading}
-                className={`snap-start shrink-0 w-44 sm:w-48 text-left rounded-2xl p-3.5 bg-gradient-to-br ${genre.gradient} bg-slate-950/80 backdrop-blur-xl border transition-all duration-200 cursor-pointer shadow-lg relative overflow-hidden group ${
-                  isSelected ? genre.activeBorder : genre.border
+                className={`snap-start shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-xl border backdrop-blur-md transition-all duration-150 cursor-pointer ${
+                  isSelected
+                    ? "bg-amber-400 text-slate-950 font-bold border-amber-300 shadow-md shadow-amber-400/20 scale-105"
+                    : `bg-slate-900/80 text-white/80 ${genre.accent}`
                 }`}
               >
-                {/* Active Indicator Glow */}
-                {isSelected && (
-                  <div className="absolute top-2 right-2 flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-                    <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  </div>
-                )}
-
-                {/* Genre Icon & Badge */}
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-2xl drop-shadow-md">{genre.icon}</span>
-                  <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 ${genre.accentColor}`}>
-                    {genre.name}
-                  </span>
-                </div>
-
-                {/* Genre Title */}
-                <h4 className="text-base font-extrabold text-white group-hover:text-amber-300 transition-colors tracking-tight">
-                  {genre.name}
-                </h4>
-
-                {/* Subtitle / Vibe */}
-                <p className="text-[11px] text-white/60 font-medium line-clamp-1 mt-0.5">
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isSelected ? 'bg-slate-950' : genre.dot}`} />
+                <span className="text-xs font-semibold whitespace-nowrap">{genre.name}</span>
+                <span className={`text-[10px] whitespace-nowrap ${isSelected ? 'text-slate-800' : 'text-white/40'}`}>
                   {genre.tagline}
-                </p>
-
-                {/* Bottom Highlight Glow Bar */}
-                <div className={`h-1 w-0 group-hover:w-full rounded-full bg-gradient-to-r ${isSelected ? 'w-full from-amber-400 to-amber-300' : 'from-white/30 to-amber-400/50'} transition-all duration-300 mt-2.5`} />
+                </span>
               </motion.button>
             );
           })}
